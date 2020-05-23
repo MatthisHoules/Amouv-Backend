@@ -13,11 +13,18 @@
 
  class HomepageC {
 
-    function __construct() {
-
-
+    /**
+     *  @name : show
+     *  @param : void
+     *  @return : void
+     * 
+     *  @brief : init AMOUV Homepage
+     * 
+     */
+    public function show() {
         View::render('Homepage/homepage', ['slt' => 'bonjour']);
-    }
+    
+    } // public function show()
 
 
  }
