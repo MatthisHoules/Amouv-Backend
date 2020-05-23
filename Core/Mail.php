@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  @title : HomepageC.php
+ *  @title : Mail.php
  *  
  *  @author : Matthis HOULES
  *  @author : Guillaume RISCH
@@ -66,11 +66,13 @@ class Mail {
     public function sendMail($sendInformation = [], $subject, $message) {
         $mailtoSend = $this->mail;
 
-        $mailtoSend->addAddress('matthis.houles@gmail.com', 'Matthis HOULES');     // Add a recipient
+        // Get the HTML message
+        require_once(__DIR__.'/../Public/Views/Mail/'.$message.'.php');
+
+        $mailtoSend->addAddress('matthis.houles@gmail.com', $sendInformation['name']);     // Add a recipient
         $mailtoSend->isHTML(true);                                  // Set email format to HTML
-        $mailtoSend->Subject = 'Here is the subject';
-        $mailtoSend->Body    = 'This is the HTML message body <b>in bold!</b>';
-        $mailtoSend->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mailtoSend->Subject = $subject;
+        $mailtoSend->Body    = $content;
 
         try {
             $mailtoSend->send();
