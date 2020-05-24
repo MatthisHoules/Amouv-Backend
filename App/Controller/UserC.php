@@ -1,12 +1,13 @@
 <?php
 
 /**
- *  @title : HomepageC.php
+ *  @title : UserC.php
  *  
  *  @author : Théo MOUMDJIAN
  *  @author : Guillaume RISCH
  *  @refractor : Matthis HOULES
  *  
+ *  @brief : User pages controller
  */
 
 
@@ -30,8 +31,6 @@ session_start();
      */
     public function signUp() {
         if (isset($_POST['submit'])) {
-            var_dump($_POST);
-            var_dump(empty($_POST['mailInput']));
 
 
             // mail
@@ -41,7 +40,11 @@ session_start();
                 exit;
             }
             // Check if mail exists
-            if (User::isMailExist($_POST['mailInput'])) {
+
+            $isUser = User::isMailExist($_POST['mailInput']);
+
+
+            if ($isUser !== false) {
                 $_SESSION['popup'] = new PopUp('error', 'L\'adresse mail renseigné est déja utilisé.');
                 header('location: /AMOUV/inscription');      
                 exit;
@@ -66,18 +69,22 @@ session_start();
 
             
             // insertion dans la base de données
-            User::newUser($_POST['mailInput'], $_POST['lastnameInput'], $_POST['firstnameInput'], $cryptedPwd);
+            $userId = User::newUser($_POST['mailInput'], $_POST['lastnameInput'], $_POST['firstnameInput'], $cryptedPwd);
             
             // Creation d'un code pour l'envoie du mail de confirmation
             $code = AleatoryString();
 
+            Confirmation::setupConfirmation($code, $userId, 'account');
+
 
             $mail = new Mail;
-            $mail->sendMail(['mail' => 'matthis.houles@gmail.com', 'name' => 'Matthis HOULES'], 'Merci de confirmer votre compte.', ['confirmationAccount', 'var' => $code]);
+            $mail->sendMail(['mail' => $_POST['mailInput'], 'name' => $_POST['firstnameInput'].' '.$_POST['lastnameInput']], 'Merci de confirmer votre compte.', ['confirmationAccount', 'var' => $code]);
             
             
             $_SESSION['popup'] = new PopUp('success', 'Votre compte a bien été créé, mais il n\'est pas encore actif. Pour l\'activer, veuillez vérifier vos mail.');
             header('location: /AMOUV/inscription'); 
+            exit;
+
         }
         
 
@@ -177,10 +184,6 @@ session_start();
             }
 
             $_SESSION['user'] = $isUser;
-            var_dump($_SESSION['user']);
-            
-
-            var_dump($_SESSION);
 
             $_SESSION['popup'] = new PopUp('success', 'Vous êtes maintenant connecté');
             header('location: /AMOUV/');
@@ -192,9 +195,121 @@ session_start();
 
 
     } // public function signIn()
+
+
+
+    /**
+     *  @name : changePasswordMail
+     * 
+     *  @param : void
+     *  
+     *  @return : void
+     * 
+     *  @brief : User enter his mail to change his password
+     */
+    public function changePasswordMail() {
+
+        if (isset($_POST['submit'])) {
+
+
+            // mail
+            if (empty($_POST['mailInput']) || !filter_var($_POST['mailInput'], FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['popup'] = new PopUp('error', 'Il faut saisir un mail valide.');
+                header('location: /AMOUV/motdepasseoublie');      
+                exit;
+            }
+            // Check if mail exists4
+            $isUser = User::isMailExist($_POST['mailInput']);
+            if (!$isUser) {
+                $_SESSION['popup'] = new PopUp('error', 'L\'adresse mail renseigné est déja utilisé.');
+                header('location: /AMOUV/motdepasseoublie');      
+                exit;
+            }
     
     
+            // generate code confirm
+            $code = AleatoryString();
+    
+            Confirmation::setupConfirmation($code, $isUser->getId(), 'password');
+    
+    
+            $mail = new Mail;
+            $mail->sendMail(['mail' => $_POST['mailInput'], 
+                             'name' => 'Nom caché'], 
+                             'Changer votre mot de passe.', 
+                             ['changePwd', 'var' => $code]);
+
+            $_SESSION['popup'] = new PopUp('success', 'Veuillez regarder vos mails afin de changer votre mot de passe.');
+            header('location: /AMOUV/connexion');
+            exit;
+    
+        }
+
+        View::render('ChangePwd/changePwdFirst', []);
+
+    } // public function changePwd()
+
+
+
+
+    /**
+     *  @name : changePassword
+     * 
+     *  @param void
+     *  
+     *  @return void
+     * 
+     *  @brief : Change password with code.
+     *
+     */
+    public function changePassword() {
+        if (!isset($_GET['code']) || strlen($_GET['code']) != 10) {
+            $_SESSION['popup'] = new PopUp('error', 'Le code fourni est non valide');
+            header('location: /AMOUV/inscription');      
+            exit;
+        }
+
+        $isUser = Confirmation::isExist($_GET['code'], 'password');
+        if (!$isUser) {
+            $_SESSION['popup'] = new PopUp('error', 'Le code n\'existe pas !');
+            header('location: /AMOUV/connexion');
+            exit;
+        }
+
+
+        if (isset($_POST['submit'])) {
+    
+            if (!isset($_POST['passwordInput']) || !isset($_POST['RpasswordInput']) || $_POST['passwordInput'] != $_POST['RpasswordInput']) {
+                $_SESSION['popup'] = new PopUp('error', 'Les mots de passe de correspondent pas.');
+                header('location: /AMOUV/cpwdmail?code='.$_GET['code']);
+                exit;
+            }
+    
+    
+            $cryptedPwd = password_hash($_POST['passwordInput'], PASSWORD_BCRYPT);
+
+            // Changement de mdp
+            User::setPassword($cryptedPwd, $isUser[0]['user_id']);
+    
+            // desactiver la confirmation
+            Confirmation::disable($_GET['code']);
+    
+    
+            $_SESSION['popup'] = new PopUp('success', 'Votre compte est maintenant actif, veuillez vous connecter !');
+            header('location: /AMOUV/connexion');
+            exit;
+
+        }
+
+        View::render('ChangePwd/changePwdSecond', []);
+
+
+
+    } // public function changePassword()
+
 }
+
+
 
 
 /**
@@ -215,6 +330,7 @@ function AleatoryString() {
     
     }
     return $str;
+
 } // function AleatoryString()
 
 
