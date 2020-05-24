@@ -18,6 +18,7 @@ class User extends Model {
     protected $firstname;
     protected $profilePicture;
     protected $active;
+    protected $id;
 
 
     /**
@@ -28,17 +29,19 @@ class User extends Model {
      *  @param : string : $firstname  
      *  @param : string : $profilePicture : profilePicture name
      *  @param : int : active
+     *  @param : id : int (11)
      * 
      *  @return : void
      * 
      *  @brief : create a new user
      */
-    function __construct($mail, $lastname, $firstname, $profilePicture, $active) {
+    function __construct($mail, $lastname, $firstname, $profilePicture, $active, $id) {
         $this->mail = $mail;
         $this->lastname = $lastname;
         $this->firstname = $firstname;
         $this->profilePicture = $profilePicture;
         $this->active = $active;
+        $this->id = $id;
 
     }
 
@@ -59,17 +62,23 @@ class User extends Model {
         $DB = static::DBConnect();
         
 
-        $stmt = $DB->prepare('SELECT COUNT(*) FROM `user` WHERE `email` = ?');
+        $stmt = $DB->prepare('SELECT * FROM `user` WHERE `email` = ?');
         $stmt->execute([$mail]);
 
-        $response = $stmt->fetch();
-
-        var_dump($response[0]);
+        $response = $stmt->fetchAll();
         
-        if ($response[0] == 0) {
+        if (sizeof($response) == 0) {
             return false;
         }
-        return true;
+
+        return new User (
+            $response[0]['email'],
+            $response[0]['lastname'],
+            $response[0]['firstname'],
+            $response[0]['profileImg'],
+            $response[0]['active'],
+            $response[0]['id']
+        );
 
     } // public static function isMailExist($mail)
 
@@ -83,7 +92,7 @@ class User extends Model {
      *  @param : string : $firstname 
      *  @param : string : $pwd : crypted password
      * 
-     *  @return : void
+     *  @return : User Id
      * 
      *  @brief : insert new user in database
      * 
@@ -95,6 +104,8 @@ class User extends Model {
                               VALUES (?, ?, ?, ?, NULL)');
 
         $stmt->execute([$lastname, $firstname, $mail, $pwd]);
+
+        return $DB->lastInsertId();
 
     } // public static function newUser($mail, $lastname, $firstname)
 
@@ -136,7 +147,9 @@ class User extends Model {
             $result[0]['lastname'],
             $result[0]['firstname'],
             $result[0]['profileImg'],
-            $result[0]['active']
+            $result[0]['active'],
+            $result[0]['id']
+
         );
 
     } //   public static function isUserExist($mail, $password)
@@ -173,6 +186,10 @@ class User extends Model {
     /*
         getters setter
     */
+    public function getId() {
+        return $this->id;
+    }
+    
     public function getMail(){
 		return $this->mail;
 	}
@@ -213,6 +230,32 @@ class User extends Model {
 		$this->active = $active;
 	}
 
+
+    /**
+     *  @name : setPassword
+     *  
+     *  @param : $newPassword : crypted password
+     *  @param : $userId : int (11)
+     * 
+     *  @return : void
+     * 
+     *  @brief : change user password
+     * 
+     * 
+     */
+    public static function setPassword($newPassword, $userId) {
+        $DB = static::DBConnect();
+
+        $stmt = $DB->prepare('UPDATE `user` 
+                              SET `password` = ? 
+                              WHERE `user`.`id` = ?');
+
+        $stmt->execute([$newPassword, $userId]);
+
+        return;
+
+
+    }
 
 }
 

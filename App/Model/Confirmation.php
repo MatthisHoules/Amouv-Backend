@@ -13,6 +13,33 @@
 
 class Confirmation extends Model {
 
+
+
+    /**
+     *  @name : setupConfirmation
+     * 
+     *  @param  : code : string
+     *  @param : user id int
+     *  @param  : use : string
+     * 
+     *  @return : void  
+     * 
+     *  @brief : insert in database
+     */
+    public static function setupConfirmation($code, $userId, $use) {
+
+        $DB = static::DBConnect();
+        $stmt = $DB->prepare('INSERT INTO `confirmation` (`id`, `code`, `user_id`, `use_for`, `active`) 
+                              VALUES (NULL, ?, ?, ?, 1)');
+        $stmt->execute([$code, $userId, $use]);
+
+        return;
+
+
+    } // public static function setupConfirmation($code, $userId, $use)
+
+
+
     /**
      * 
      *  @name : isExist
