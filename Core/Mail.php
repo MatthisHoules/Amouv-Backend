@@ -34,7 +34,7 @@ class Mail {
 
         $mail = new PHPMailer\PHPMailer\PHPMailer();
 
-        $mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+        $mail->SMTPDebug = false;                      // Enable verbose debug output
         $mail->isSMTP();                                            // Send using SMTP
         $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
@@ -46,6 +46,7 @@ class Mail {
 
 
         $this->mail = $mail;
+        
     } // function __construct()
 
 
@@ -55,11 +56,11 @@ class Mail {
      *  
      *  @param : $sendInformation : array : mail and name destination
      *  @param $subject : string : subject mail
-     *  @param : $message : string : message mail
+     *  @param : $message : array : 0 : view mail, 'var' : var needed for view
      * 
      *  @return : boolean : true if mail send, false instead
      * 
-     *  @brief : 
+     *  @brief : send a mails
      * 
      *  
      */
@@ -67,9 +68,9 @@ class Mail {
         $mailtoSend = $this->mail;
 
         // Get the HTML message
-        require_once(__DIR__.'/../Public/Views/Mail/'.$message.'.php');
+        require_once(__DIR__.'/../Public/Views/Mail/'.$message[0].'.php');
 
-        $mailtoSend->addAddress('matthis.houles@gmail.com', $sendInformation['name']);     // Add a recipient
+        $mailtoSend->addAddress($sendInformation['mail'], $sendInformation['name']);     // Add a recipient
         $mailtoSend->isHTML(true);                                  // Set email format to HTML
         $mailtoSend->Subject = $subject;
         $mailtoSend->Body    = $content;
