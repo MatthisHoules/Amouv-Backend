@@ -1,3 +1,12 @@
+<?php
+    if (isset($_SESSION['popup'])) {
+
+        echo $_SESSION['popup']->display();
+        unset($_SESSION['popup']);
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +101,7 @@
     <header>
         <div class="headerContent">
     
-            <img src="./assets/images/amouvLogoBlack.svg" alt="AmouvLogo" class="logoHeader">
+            <img src="./Public/assets/images/amouvLogoBlack.svg" alt="AmouvLogo" class="logoHeader">
     
     
             <div class="headerTriggersContainer">
@@ -230,7 +239,7 @@
     <?= $content; ?>
 
     <footer>
-        <img src="./assets/images/amouvLogoWhite.svg" alt="AmouvLogo" class="footerLogo">
+        <img src="./Public/assets/images/amouvLogoWhite.svg" alt="AmouvLogo" class="footerLogo">
         <div class="snContainer">
             <a href="" class="socialNetwork">
                 <i class="fab fa-twitter-square"></i>
