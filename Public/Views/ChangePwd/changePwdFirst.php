@@ -8,24 +8,50 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>AMOUV | mot de passe oublié</title>
 
     <link rel="stylesheet" href="./Public/assets/css/popup.css">
     <script src="./Public/assets/js/popup.js" defer></script>
 
+    <link rel="stylesheet" href="./Public/assets/css/sign.css">
+    <script src="./Public/assets/js/sign.js" defer></script>
+
     <script src="https://kit.fontawesome.com/b18ab37082.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body id="preload">
     
-    <form action="" method="post">
+    <img src="./Public/assets/images/amouvLogoBlack.svg" alt="" class="signLogo">
+    <main>
+        <a href="" class="backButton">
+            <i class="fas fa-chevron-left"></i>
+        </a>
         
-        <input type="email" name="mailInput" id="">
-        <input type="submit" value="Changer de mdp" name="submit">
-    </form>
+        <form action="" method="POST">
+            <p class="signTitle">
+                Mot de passe oublié ?
+            </p>
+
+            <div class="inputContainer">
+                <label for="mailInput">Adresse E-mail</label>
+                <input type="email" name="mailInput" id="mailInput">
+            </div>
+
+            <div class="buttonContainer">
+                <button type="submit" name="submit" value="submit">
+                    Changer mon mot de passe
+                </button>
+            </div>
+
+        </form>
+    </main>
+
+
+
+
 
 </body>
 </html>
