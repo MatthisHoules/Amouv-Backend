@@ -7,6 +7,7 @@
  *  @brief : Routing table & start page
  */
  
+
 // require Core files
 require_once('./Core/Model.php');
 require_once('./Core/View.php');
@@ -20,8 +21,19 @@ $Router = new Router;
 /**
  *  Add your routes here
  */
-$Router->add('/amouv/signin', ['controller' => 'UserC']);
-$Router->add('/amouv', ['controller' => 'HomepageC']);
+
+// Homepage
+$Router->add('/amouv', ['controller' => 'HomepageC@show']);
+
+// Sign
+$Router->add('/amouv/connexion', ['controller' => 'UserC@signIn']);
+$Router->add('/amouv/inscription', ['controller' => 'UserC@signUp']);
+$Router->add('/amouv/validation', ['controller' => 'UserC@validateAccount']);
+$Router->add('/amouv/motdepasseoublie' , ['controller' => 'UserC@changePasswordMail']);
+$Router->add('/amouv/cpwdmail' , ['controller' => 'UserC@changePassword']);
+$Router->add('/amouv/deconnexion', ['controller' => 'UserC@signOut']);
+
+
 
 
 
