@@ -17,14 +17,16 @@ require_once(__DIR__.'/../Model/Confirmation.php');
 require_once(__DIR__.'/../../Core/Mail.php');
 require_once(__DIR__.'/../../Core/PopUp.php');
 session_start();
+
+
  
  class UserC {
 
 
     /**
      *  @name : signUp
-     *  @param : void
-     *  @return : void
+     *  @param  void
+     *  @return void
      * 
      *  @brief : Sign Up page Controller
      * 
@@ -97,8 +99,8 @@ session_start();
 
     /**
      *  @name : validateAccount
-     *  @param : void
-     *  @return : void
+     *  @param  void
+     *  @return void
      * 
      *  @brief : validate Account with mail
      * 
@@ -142,8 +144,8 @@ session_start();
 
     /**
      *  @name : signIn
-     *  @param : void
-     *  @return : void
+     *  @param  void
+     *  @return void
      * 
      *  @brief : SignUp page Controller
      * 
@@ -201,9 +203,9 @@ session_start();
     /**
      *  @name : changePasswordMail
      * 
-     *  @param : void
+     *  @param void
      *  
-     *  @return : void
+     *  @return void
      * 
      *  @brief : User enter his mail to change his password
      */
@@ -240,6 +242,8 @@ session_start();
                              ['changePwd', 'var' => $code]);
 
             $_SESSION['popup'] = new PopUp('success', 'Veuillez regarder vos mails afin de changer votre mot de passe.');
+
+           
             header('location: /AMOUV/connexion');
             exit;
     
@@ -263,6 +267,7 @@ session_start();
      *
      */
     public function changePassword() {
+        
         if (!isset($_GET['code']) || strlen($_GET['code']) != 10) {
             $_SESSION['popup'] = new PopUp('error', 'Le code fourni est non valide');
             header('location: /AMOUV/inscription');      
@@ -306,6 +311,29 @@ session_start();
 
 
     } // public function changePassword()
+
+
+
+    /**
+     *  @name : signOut
+     *  
+     *  @param void
+     *  
+     *  @return void
+     * 
+     *  @brief : log out page controller
+     */
+    public function signOut() {
+        unset($_SESSION['user']);
+        
+        $_SESSION['popup'] = new PopUp('success', 'Vous êtes maintenant déconnecté.');
+        header('location: /AMOUV/');
+
+
+
+
+    } // public function signOut()
+
 
 }
 
