@@ -24,8 +24,8 @@
 </head>
 <body id="preload">
     
-    <img src="./Public/assets/images/amouvLogoBlack.svg" alt="" class="signLogo">
     <main>
+        <img src="./Public/assets/images/amouvLogoBlack.svg" alt="" class="signLogo">
         <a href="" class="backButton">
             <i class="fas fa-chevron-left"></i>
         </a>
