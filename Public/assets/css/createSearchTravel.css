@@ -1,0 +1,269 @@
+/**
+    @name : createSearchTravel.css
+
+    @author : Antoine DELAUNAY
+    @author : Mathieu LEBRUN
+    @author : Matthis HOULES
+
+    @brief : design create & search page travel
+
+*/
+
+main {
+    width : 100vw;
+    max-width : 850px;
+    min-width : 320px;
+
+    margin-top : 50px;
+    margin-bottom : 50px;
+
+    display : flex;
+    flex-direction : column;
+
+    margin-left : auto;
+    margin-right : auto;
+
+    padding-top : 25px;
+    padding-bottom : 25px;
+
+    background-color : #5e6896;
+
+    border-radius : 20px;
+
+
+}
+
+.mainTitle {
+    font-size : 35px;
+
+}
+
+
+.formContainer,  form {
+    width : 100%;
+}
+
+.formContainer {
+    width : 100%;
+
+    margin-top : 25px;
+    
+    display : flex;
+    flex-direction : row;
+    flex-wrap : wrap-reverse;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.rightSide, .leftSide {
+    width : 49%;
+    min-width : 320px;
+
+    position : relative;
+    z-index : 0;
+}
+
+/* 
+    INPUTS  
+*/
+.inputContainer {
+    display : flex;
+    flex-direction : column;
+    align-items : flex-start;
+
+    width : 250px;
+
+    margin : 20px auto 20px auto;
+}
+.inputContainer label {
+    font-family: 'Jost', sans-serif;
+    font-size : 15px;
+    color : #fff;
+}
+.inputContainer input {
+    font-family: 'Jost', sans-serif;
+
+    font-size : 15px;
+
+    padding : 10px 0px 10px;
+
+    text-align : center;
+
+    color : #fff;
+
+    background-color : rgba(255,255,255,0.2);
+    border : 2px solid #fff;
+    border-radius : 10px;
+
+    width : 250px;
+
+}
+
+.rightSide {
+    display : flex;
+    flex-direction : column;
+    align-items: center;
+    justify-content: center;
+
+    height : 250px;
+}
+
+#map {
+    width : 320px;
+    height : 250px;
+
+    background-color : #fff;
+    position : relative;
+    z-index: 0 !important;
+}
+
+#ETTCC {
+    padding-top : 20px;
+    padding-bottom : 20px;
+
+    font-family: 'Jost', sans-serif;
+    font-size : 15px;
+
+    color : #fff;
+
+    background-color : #6d76a0;
+
+    width : 320px;
+
+    text-align : center;
+
+    display: none;
+
+    flex-direction : row;
+    justify-content: center;
+}
+#ETTCC.display {
+    display : flex;
+}
+
+#ETTvalue {
+    padding-left : 5px;
+}
+
+.formPartTitle {
+    font-family: 'bebas neue', sans-serif;
+    font-size : 30px;
+
+    width : 320px;
+
+    text-align: center;
+
+    color : #fff;
+}
+
+.carContainer, .detailsContainer {
+    width : 80%;
+
+    margin-top : 25px;
+    margin-left : auto;
+    margin-right : auto;
+
+    display : flex;
+    flex-direction : column;
+    align-items: center;
+}
+
+.carlist {
+    margin-top : 15px;
+    margin-bottom : 25px;
+
+    width : 100%;
+
+    display : flex;
+    flex-direction : row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+ 
+.car {
+    width : 280px;
+
+    padding : 10px;
+    margin : 10px;
+
+    background-color : #6d76a0;
+
+    color : #fff;   
+
+    display : flex;
+    flex-direction : row;
+    align-items : center;
+    cursor : pointer;
+}
+
+.carname {
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size : 15px;
+    padding-left : 25px;
+}
+.carInput {
+    margin-left : 20px;
+}
+
+.list {
+    width : 100%;
+
+    display : flex;
+    flex-direction : row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.detailsContainer {
+    margin-top : 0;
+}
+
+
+button[type="submit"] {
+    text-align: center;
+
+    padding : 7px 10px 7px 10px;
+
+    background : #fff;
+    border : none;
+
+    border-radius : 5px;
+    font-family: 'Jost', sans-serif;
+
+    cursor : pointer;
+
+    font-size : 14px;
+
+    margin-top : 10px;
+
+    color : #4E598C;
+}
+button[type="submit"]:hover {
+    background-color : #e1e1e1;
+    transition : 0.2s;
+    cursor : pointer;
+}
+
+.submitContainer {
+    width : 100%;
+
+    display : flex;
+    flex-direction : row;
+    justify-content: center;
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fff;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #fff;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #fff;
+  }
