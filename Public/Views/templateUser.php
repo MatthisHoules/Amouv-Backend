@@ -20,7 +20,10 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/template.css">
-
+    
+    <link rel="stylesheet" href="./Public/assets/css/popup.css">
+    <script src="./Public/assets/js/popup.js" defer></script>
+    
     <?php foreach ($listStyles as $key => $value) { ?>
         <link rel="stylesheet" href="./Public/assets/css/<?=$value?>">
     <?php } ?>

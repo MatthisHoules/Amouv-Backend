@@ -1,3 +1,12 @@
+<?php
+    if (isset($_SESSION['popup'])) {
+
+        echo $_SESSION['popup']->display();
+        unset($_SESSION['popup']);
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +21,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./Public/assets/css/template.css">
 
+    <link rel="stylesheet" href="./Public/assets/css/popup.css">
+    <script src="./Public/assets/js/popup.js" defer></script>
+    
     <?php foreach ($listStyles as $key => $value) { ?>
         <link rel="stylesheet" href="./Public/assets/css/<?=$value?>">
     <?php } ?>
