@@ -19,22 +19,20 @@
     <script src="https://kit.fontawesome.com/b18ab37082.js" crossorigin="anonymous"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/template.css">
+    <link rel="stylesheet" href="/AMOUV/Public/assets/css/template.css">
     
-    <link rel="stylesheet" href="./Public/assets/css/popup.css">
-    <script src="./Public/assets/js/popup.js" defer></script>
+    <link rel="stylesheet" href="/AMOUV/Public/assets/css/popup.css">
+    <script src="/AMOUV/Public/assets/js/popup.js" defer></script>
     
     <?php foreach ($listStyles as $key => $value) { ?>
-        <link rel="stylesheet" href="./Public/assets/css/<?=$value?>">
+        <link rel="stylesheet" href="/AMOUV/Public/assets/css/<?=$value?>">
     <?php } ?>
 
     <!-- JS -->
-    <script src="./Public/assets/js/templateUser.js"></script>
+    <script src="/AMOUV/Public/assets/js/templateUser.js"></script>
 
-    <?php foreach ($listStyles as $key => $value) { ?>
-        <script src="./Public/assets/js/<?= $value ?>" defer></script>
-
-        <link rel="stylesheet" href="./Public/assets/css/template.css">
+    <?php foreach ($listJS as $key => $value) { ?>
+        <script src="/AMOUV/Public/assets/js/<?= $value ?>" defer></script>
     <?php } ?>
 </head>
 
@@ -45,66 +43,69 @@
     </div>
     
     <div class="sideBar" id="sideBar">
-        <button id="closeSideBarB">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="topSidebar">
-            <p class="mainTitle">
-                {Prenom} {Nom}
-            </p>
-            <p class="secondTitle userSecondTitle">
-                {Email}
-            </p>
-    
-            <button class="sideLink">
-                <i class="far fa-user-circle"></i>
-                <span>
-                    Profil
-                </span>
+        <div class="sideBarc">
+        
+            <button id="closeSideBarB">
+                <i class="fas fa-times"></i>
             </button>
-            <button class="sideLink signOut">
-                <i class="fas fa-sign-out-alt"></i>
-                <span >
-                    Se deconnecter
-                </span>
-            </button>
+            <div class="topSidebar">
+                <p class="mainTitle">
+                    <?= $_SESSION['user']->getFirstname().' '.$_SESSION['user']->getLastname() ?>
+                </p>
+                <p class="secondTitle userSecondTitle">
+                    <?= strtolower($_SESSION['user']->getMail()); ?>
+                </p>
+        
+                <button class="sideLink">
+                    <i class="far fa-user-circle"></i>
+                    <span>
+                        Profil
+                    </span>
+                </button>
+                <button class="sideLink signOut">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span >
+                        Se deconnecter
+                    </span>
+                </button>
+            </div>
+        
+            <nav class="nbSideBar">
+                <div class="linkContainer">
+                    <p class="linktitle">
+                        Trajet
+                    </p>
+                    <a class="sideLink">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            Créer un trajet
+                        </span>
+                    </a>
+                    <a class="sideLink">
+                        <i class="fas fa-search"></i>
+                        <span>
+                            Rechercher un trajet
+                        </span>
+                    </a>
+                </div>
+                <div class="linkContainer">
+                    <p class="linktitle">
+                        Autres
+                    </p>
+                    <a class="sideLink">
+                        <i class="far fa-copyright"></i>
+                        <span>
+                            Crédits
+                        </span>
+                    </a>
+                </div>
+            </nav>
         </div>
-    
-        <nav class="nbSideBar">
-            <div class="linkContainer">
-                <p class="linktitle">
-                    Trajet
-                </p>
-                <a class="sideLink">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        Créer un trajet
-                    </span>
-                </a>
-                <a class="sideLink">
-                    <i class="fas fa-search"></i>
-                    <span>
-                        Rechercher un trajet
-                    </span>
-                </a>
-            </div>
-            <div class="linkContainer">
-                <p class="linktitle">
-                    Autres
-                </p>
-                <a class="sideLink">
-                    <i class="far fa-copyright"></i>
-                    <span>
-                        Crédits
-                    </span>
-                </a>
-            </div>
-        </nav>
     </div>
     <header>
         <div class="headerContent">
     
-            <img src="./Public/assets/images/amouvLogoBlack.svg" alt="AmouvLogo" class="logoHeader">
+            <img src="/AMOUV/Public/assets/images/amouvLogoBlack.svg" alt="AmouvLogo" class="logoHeader">
     
     
             <div class="headerTriggersContainer">
@@ -242,7 +243,7 @@
     <?= $content; ?>
 
     <footer>
-        <img src="./Public/assets/images/amouvLogoWhite.svg" alt="AmouvLogo" class="footerLogo">
+        <img src="/AMOUV/Public/assets/images/amouvLogoWhite.svg" alt="AmouvLogo" class="footerLogo">
         <div class="snContainer">
             <a href="" class="socialNetwork">
                 <i class="fab fa-twitter-square"></i>
