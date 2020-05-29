@@ -54,6 +54,42 @@ class TravelC {
      */
     public function createTravel() {
 
+        var_dump($_SESSION);
+
+        if (isset($_POST['submit'])) {
+
+            if (empty($_POST['cityStart']) || empty($_POST['cityEnd'])) {
+                $_SESSION['popup'] = new PopUp('error', 'Vous devez renseigner une ville de départ et une ville d\'arrivée');
+                header('location: /amouv/voyage/creation');
+                exit();
+            }
+
+            if (empty($_POST['dayDeparture']) || empty($_POST['timeDeparture'])) {
+                $_SESSION['popup'] = new PopUp('error', 'Le jour et l\'heure de départ ');
+                header('location: /amouv/voyage/creation');
+                exit();
+            }
+
+            $dateDeparture = strtotime($_POST['dayDeparture'] . $_POST['timeDeparture']);
+
+            if ($dateDeparture <= time()) {
+                $_SESSION['popup'] = new PopUp('error', 'Votre départ ne peut pas être dans le passé');
+                header('location: /amouv/voyage/creation');
+                exit();
+            }
+
+
+            if (empty($_POST['car'])) {
+                $_SESSION['user'] =  new PopUp('error', 'Vous devez choisir une voiture');
+                header('location: /amouv/voyage/creation');
+                exit();
+            }
+
+
+
+        }
+
+
         View::render('Travel/createTravel', ['slt' => 'bonjour']);
 
 
