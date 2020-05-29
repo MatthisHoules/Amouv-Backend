@@ -34,8 +34,12 @@ $Router->add('/amouv/cpwdmail' , ['controller' => 'UserC@changePassword']);
 $Router->add('/amouv/deconnexion', ['controller' => 'UserC@signOut']);
 
 
+// Travel
+$Router->add('/amouv/voyage/creation', ['controller' => 'TravelC@createTravel']);
 
 
+// Car
+$Router->add('/amouv/voiture/creation', ['controller' => 'CarC@createCar']);
 
 $Router->initialize();
 
