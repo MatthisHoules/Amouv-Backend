@@ -49,8 +49,20 @@ class Router {
         });
 
 
+        $ClassMethodNames = explode('@', $this->routes[$this->getURL()]['controller']);
+    
+        if (sizeof($ClassMethodNames) == 1) {
+            var_dump('ERREUR : VOUS DEVEZ RENSEIGNEZ UNE METHOD POUR LA ROUTE.');
+            die();
+        }
 
-        $class = new $this->routes[$this->getUrl()]['controller'];
+
+        // Controller init & method call
+        $class = new $ClassMethodNames[0];
+        $methodName = $ClassMethodNames[1]; 
+        $class->$methodName();
+
+        
 
 
 
