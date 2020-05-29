@@ -10,6 +10,7 @@
  *  @brief : User model
  */
 
+require_once(__DIR__.'/Car.php');
 
 class User extends Model {
 
@@ -19,6 +20,7 @@ class User extends Model {
     protected $profilePicture;
     protected $active;
     protected $id;
+    protected $cars;
 
 
     /**
@@ -43,6 +45,7 @@ class User extends Model {
         $this->active = $active;
         $this->id = $id;
 
+        $this->cars = Car::getUserCar($id);
     }
 
 
@@ -183,36 +186,67 @@ class User extends Model {
 
 
 
-    /*
-        getters setter
-    */
+    /**
+     *  @name : getId
+     *  
+     *  @param : void
+     *  
+     *  @return : void
+     * 
+     *  @brief : get user id
+     * 
+     */
     public function getId() {
         return $this->id;
     }
+
     
+    
+    /**
+     *  @name : getMail
+     * 
+     *  @param : void
+     *  
+     *  @return : string
+     * 
+     *  @brief : get mail
+     * 
+     */
     public function getMail(){
 		return $this->mail;
 	}
 
-	public function setMail($mail){
-		$this->mail = $mail;
-	}
 
+    /**
+     *  @name : getLastname
+     * 
+     *  @param : void
+     * 
+     *  @return : string
+     * 
+     *  @brief : lastname
+     * 
+     */
 	public function getLastname(){
 		return $this->lastname;
 	}
 
-	public function setLastname($lastname){
-		$this->lastname = $lastname;
-	}
 
+
+    /**
+     * 
+     *  @name : getFirstname
+     * 
+     *  @param  : void
+     * 
+     *  @return : 
+     * 
+     */
 	public function getFirstname(){
 		return $this->firstname;
 	}
 
-	public function setFirstname($firstname){
-		$this->firstname = $firstname;
-	}
+
 
 	public function getProfilePicture(){
 		return $this->profilePicture;
@@ -240,7 +274,6 @@ class User extends Model {
      *  @return : void
      * 
      *  @brief : change user password
-     * 
      * 
      */
     public static function setPassword($newPassword, $userId) {

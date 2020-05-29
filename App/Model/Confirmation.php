@@ -13,8 +13,6 @@
 
 class Confirmation extends Model {
 
-
-
     /**
      *  @name : setupConfirmation
      * 

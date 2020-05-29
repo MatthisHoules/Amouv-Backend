@@ -70,7 +70,7 @@ async defer></script>
 
             <div class="carlist">
                 <label for="car1" class="car">
-                    <input type="radio" id="car1" name="car" class="carInput">
+                    <input type="radio" id="car1" name="car" class="carInput" value="1">
                     <p class="carname">
                         NOM VOITURE BLABLA
                     </p>
@@ -119,10 +119,6 @@ async defer></script>
 
     $content = ob_get_clean();
 
-    if (isset($_SESSION['user'])) {
-        require_once(__DIR__.'/../templateUser.php');
-    } else {
-        require_once(__DIR__.'/../templateGuest.php');
-    }
+    require_once(__DIR__.'/../templateUser.php');
 
 ?>

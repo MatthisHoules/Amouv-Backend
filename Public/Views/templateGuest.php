@@ -1,3 +1,12 @@
+<?php
+    if (isset($_SESSION['popup'])) {
+
+        echo $_SESSION['popup']->display();
+        unset($_SESSION['popup']);
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,19 +19,21 @@
     <script src="https://kit.fontawesome.com/b18ab37082.js" crossorigin="anonymous"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./Public/assets/css/template.css">
+    <link rel="stylesheet" href="/Amouv/Public/assets/css/template.css">
 
+    <link rel="stylesheet" href="/amouv/Public/assets/css/popup.css">
+    <script src="/Amouv/Public/assets/js/popup.js" defer></script>
+    
     <?php foreach ($listStyles as $key => $value) { ?>
-        <link rel="stylesheet" href="./Public/assets/css/<?=$value?>">
+        <link rel="stylesheet" href="/amouv/Public/assets/css/<?=$value?>">
     <?php } ?>
 
     <!-- JS -->
-    <script src="./Public/assets/js/templateGuest.js"></script>
+    <script src="/amouv/Public/assets/js/templateGuest.js"></script>
 
-    <?php foreach ($listStyles as $key => $value) { ?>
-        <script src="./Public/assets/js/<?= $value ?>" defer></script>
+    <?php foreach ($listJS as $key => $value) { ?>
+        <script src="/amouv/Public/assets/js/<?= $value ?>" defer></script>
 
-        <link rel="stylesheet" href="./Public/assets/css/template.css">
     <?php } ?>
 </head>
 
@@ -33,44 +44,47 @@
     </div>
     
     <div class="sideBar" id="sideBar">
-        <button id="closeSideBarB">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="topSidebar">
-            <p class="mainTitle">
-                Bienvenue
-            </p>
-            <p class="secondTitle">
-                Vous devez être connecter pour accéder aux fonctionnalités du site web.
-            </p>
-    
-            <button class="sideLink">
-                <i class="fas fa-sign-in-alt"></i>
-                <span>
-                    Se connecter
-                </span>
+        <div class="sideBarc">
+
+            <button id="closeSideBarB">
+                <i class="fas fa-times"></i>
             </button>
-            <button class="sideLink">
-                <i class="fas fa-user-plus"></i>
-                <span>
-                    S'inscrire
-                </span>
-            </button>
-        </div>
-    
-        <nav class="nbSideBar">
-            <div class="linkContainer">
-                <p class="linktitle">
-                    Autres
+            <div class="topSidebar">
+                <p class="mainTitle">
+                    Bienvenue
                 </p>
-                <a class="sideLink">
-                    <i class="far fa-copyright"></i>
+                <p class="secondTitle">
+                    Vous devez être connecter pour accéder aux fonctionnalités du site web.
+                </p>
+        
+                <button class="sideLink">
+                    <i class="fas fa-sign-in-alt"></i>
                     <span>
-                        Crédits
+                        Se connecter
                     </span>
-                </a>
+                </button>
+                <button class="sideLink">
+                    <i class="fas fa-user-plus"></i>
+                    <span>
+                        S'inscrire
+                    </span>
+                </button>
             </div>
-        </nav>
+        
+            <nav class="nbSideBar">
+                <div class="linkContainer">
+                    <p class="linktitle">
+                        Autres
+                    </p>
+                    <a class="sideLink">
+                        <i class="far fa-copyright"></i>
+                        <span>
+                            Crédits
+                        </span>
+                    </a>
+                </div>
+            </nav>
+        </div>
     </div>
     <header>
         <div class="headerContent">

@@ -63,10 +63,12 @@
         .activateAccount {
             padding : 10px;
             background-color : #5e6896;
-            color : #fff;
+            color : #fff !important;
             font-family: 'Jost', sans-serif;
             font-size : 15px;
             transition : 0.2s;
+
+            text-decoration : none !important;
 
             margin-left : auto;
             margin-right : auto;
