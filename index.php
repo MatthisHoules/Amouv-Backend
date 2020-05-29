@@ -38,6 +38,8 @@ $Router->add('/amouv/deconnexion', ['controller' => 'UserC@signOut']);
 $Router->add('/amouv/voyage/creation', ['controller' => 'TravelC@createTravel']);
 
 
+// Car
+$Router->add('/amouv/voiture/creation', ['controller' => 'CarC@createCar']);
 
 $Router->initialize();
 
