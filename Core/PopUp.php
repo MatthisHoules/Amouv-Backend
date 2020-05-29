@@ -72,6 +72,6 @@ class PopUp {
 
         } 
 
-    }//     public function displayPopup() 
+    } // public function displayPopup() 
 
 }
