@@ -69,6 +69,7 @@ class User extends Model {
         $stmt->execute([$mail]);
 
         $response = $stmt->fetchAll();
+
         
         if (sizeof($response) == 0) {
             return false;
@@ -141,6 +142,8 @@ class User extends Model {
             return false;
         }
 
+        var_dump($result);
+
         if(!password_verify($password, $result[0]['password'])) {
             return false;
         }
@@ -149,9 +152,9 @@ class User extends Model {
             $result[0]['email'],
             $result[0]['lastname'],
             $result[0]['firstname'],
-            $result[0]['profileImg'],
+            $result[0]['profileimg'],
             $result[0]['active'],
-            $result[0]['id']
+            $result[0]['Id']
 
         );
 
@@ -262,7 +265,11 @@ class User extends Model {
 
 	public function setActive($active){
 		$this->active = $active;
-	}
+    }
+    
+    public function getCars() {
+        return $this->cars;
+    }
 
 
     /**

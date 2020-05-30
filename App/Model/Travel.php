@@ -55,7 +55,7 @@ class Travel extends Model {
 
 
     /**
-     *  @name : insertNewCar
+     *  @name : insertNewTravel
      *  
      *  @param : id_car : int
      *  @param : departure : varchar
@@ -69,10 +69,10 @@ class Travel extends Model {
      *  @brief : insert in database a new car
      * 
      */
-    public static function insertNewCar($id_car, $departure, $arrival, $date_dep, $seats, $smoking, $lugage) {
+    public static function insertNewTravel($id_car, $departure, $arrival, $date_dep, $seats, $smoking, $lugage) {
         $DB = static::DBConnect();
         
-        $stmt = $DB->prepare('INSERT INTO `travel` (`id`, 
+        $stmt = $DB->prepare('INSERT INTO `travel` (
                                                     `id_Creator`, 
                                                     `id_car`, 
                                                     `date_dep`, 
@@ -82,9 +82,9 @@ class Travel extends Model {
                                                     `smoking`, 
                                                     `lugage`, 
                                                     `active`) 
-                               VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, \'1\')');
+                               VALUES (?, ?, FROM_UNIXTIME(?), ?, ?, ?, ?, ?, \'1\')');
 
-        $stmt->execute([$_SESSION['user']->id, 
+        $stmt->execute([$_SESSION['user']->getId(), 
                         $id_car,
                         $date_dep,
                         $departure,

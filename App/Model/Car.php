@@ -61,12 +61,9 @@ class Car extends Model{
 
         $result = $stmt->fetchAll();
 
-        var_dump($result);
-
         if (sizeof($result) == 0) {
             return false;
         }
-
 
         $listCar = [];
         foreach ($result as $key => $value) {
@@ -81,6 +78,81 @@ class Car extends Model{
 
 
     } // public static function getUserCar($userId)
+
+
+    /**
+     *  @name : carBelongUser
+     *  
+     *  @param : userId
+     *  @param : carId
+     * 
+     *  @return : bool, if car belong to user return Car object, false instead
+     * 
+     */
+    public static function carBelongUser($userId, $carId) {
+
+        $DB = static::DBConnect();
+        $stmt = $DB->prepare('SELECT * 
+                              FROM `car`
+                              WHERE `user_id` = ?
+                              AND `car_id` = ?');
+        $stmt->execute([$userId, $carId]);
+
+        $result = $stmt->fetchAll();
+
+        if (sizeof($result) == 0) {
+            return false;
+        }
+        return new Car( $result[0]['car_id'], 
+                        $result[0]['color'], 
+                        $result[0]['car_seat'], 
+                        $result[0]['model'], 
+                        $result[0]['motorization']
+                    );
+
+    } // public sttaic function carBelongUser($userId, $carId)
+
+
+
+    public function getId(){
+		return $this->id;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getColor(){
+		return $this->color;
+	}
+
+	public function setColor($color){
+		$this->color = $color;
+	}
+
+	public function getCar_seat(){
+		return $this->car_seat;
+	}
+
+	public function setCar_seat($car_seat){
+		$this->car_seat = $car_seat;
+	}
+
+	public function getModel(){
+		return $this->model;
+	}
+
+	public function setModel($model){
+		$this->model = $model;
+	}
+
+	public function getMotorization(){
+		return $this->motorization;
+	}
+
+	public function setMotorization($motorization){
+		$this->motorization = $motorization;
+	}
 }
 
 
