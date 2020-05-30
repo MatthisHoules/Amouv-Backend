@@ -69,19 +69,21 @@ async defer></script>
             </p>
 
             <div class="carlist">
-                <label for="car1" class="car">
-                    <input type="radio" id="car1" name="car" class="carInput" value="1">
-                    <p class="carname">
-                        NOM VOITURE BLABLA
-                    </p>
-                </label>
+                <?php 
+                    for ($i=0; $i < sizeof($_SESSION['user']->getCars()); $i++) { 
+                        $car = $_SESSION['user']->getCars()[$i];
+                ?>
 
-                <label for="car2" class="car">
-                    <input type="radio" id="car2" name="car" class="carInput">
-                    <p class="carname">
-                        NOM VOITURE BLABLA
-                    </p>
-                </label>
+                    <label for="car<?=$i?>" class="car">
+                        <input type="radio" id="car<?=$i?>" name="car" class="carInput" value="<?= $car->getId()?>">
+                        <p class="carname">
+                            <?= $car->getModel(); ?>
+                        </p>
+                    </label>
+
+                <?php
+                    }
+                ?>
             </div>
         </div>
 
@@ -111,7 +113,6 @@ async defer></script>
         </div>
     </form>
 </main>
-
 
 
 
