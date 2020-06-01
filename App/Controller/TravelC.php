@@ -120,10 +120,131 @@ class TravelC {
                 
         }
 
-        View::render('Travel/createTravel', ['slt' => 'bonjour']);
+        View::render('Travel/createTravel', []);
 
     } // public function createTravel()
 
 
+    /**
+     *  @name : searchTravel
+     *  
+     *  @param : void
+     *  @return : void
+     * 
+     *  @brief : search Trave page controller
+     */
+    public function searchTravel() {
+
+        if (isset($_POST['submit'])) {
+
+            // Cities of departure & arrival
+            if (empty($_POST['cityStart']) || empty($_POST['cityEnd'])) {
+                $_SESSION['popup'] = new PopUp('error', 'Vous devez renseigner une ville de départ et une ville d\'arrivée');
+                header('location: /amouv/voyage/recherche');
+                exit();
+            }
+
+            // Day & time of departure
+            if (empty($_POST['dayDeparture']) || empty($_POST['timeDeparture'])) {
+                $_SESSION['popup'] = new PopUp('error', 'Le jour et l\'heure de départ ');
+                header('location: /amouv/voyage/recherche');
+                exit();
+            }
+
+            $dateDeparture = strtotime($_POST['dayDeparture'] . $_POST['timeDeparture']);
+
+            if ($dateDeparture <= time()) {
+                $_SESSION['popup'] = new PopUp('error', 'Votre départ ne peut pas être dans le passé');
+                header('location: /amouv/voyage/recherche');
+                exit();
+            }
+
+            $link = '/amouv/voyage/resultats?cityStart='.$_POST['cityStart']
+                            .'&cityEnd='.$_POST['cityEnd']
+                            .'&dayDeparture='.$_POST['dayDeparture']
+                            .'&timeDeparture='.$_POST['timeDeparture'];
+            header('location: '.$link);
+            exit();
+            
+        }
+
+
+
+        View::render('Travel/searchTravel', []);
+    } // public function searchTravel()
+
+
+
+    /**
+     *  @name : resultTravel
+     *  
+     *  @param : void
+     *  @return : vois
+     * 
+     *  @brief : result travel controller
+     */
+    public function resultTravel() {
+
+        // check $_GET values
+        // Cities of departure & arrival
+        if (empty($_GET['cityStart']) || empty($_GET['cityEnd'])) {
+            $_SESSION['popup'] = new PopUp('error', 'Vous devez renseigner une ville de départ et une ville d\'arrivée');
+            header('location: /amouv/voyage/recherche');
+            exit();
+        }
+
+        // Day & time of departure
+        if (empty($_GET['dayDeparture']) || empty($_GET['timeDeparture'])) {
+            $_SESSION['popup'] = new PopUp('error', 'Le jour et l\'heure de départ ');
+            header('location: /amouv/voyage/recherche');
+            exit();
+        }
+
+        $dateDeparture = strtotime($_GET['dayDeparture'] . $_GET['timeDeparture']);
+
+        if ($dateDeparture <= time()) {
+            $_SESSION['popup'] = new PopUp('error', 'Votre départ ne peut pas être dans le passé');
+            header('location: /amouv/voyage/recherche');
+            exit();
+        }
+
+
+        $results = Travel::searchTravels($_GET['cityStart'], $_GET['cityEnd'], $dateDeparture);
+
+        var_dump($results);
+
+
+    } // public function resultTravel()
+
+
+
+    /**
+     *  @name : focusTravel
+     *  
+     *  @param void
+     *  @return void
+     * 
+     *  @brief : focus travel page
+     */
+    public function focusTravel() {
+
+        if (empty($_GET['id'])) {
+            $_SESSION['popup'] = new PopUp('error', 'Erreur dans l\'URL, voyage recherché inconnu');
+            header('location: /amouv/voyage/recherche');
+            exit();
+        }
+
+        $travel = Travel::getTravel($_GET['id']);
+        
+        if (!$travel) {
+            $_SESSION['popup'] = new PopUp('error', 'Erreur dans l\'URL, voyage recherché inconnu');
+            header('location: /amouv/voyage/recherche');
+            exit();
+        }
+
+
+        var_dump($travel);
+
+    } // public function focusTravel()
 }
 
