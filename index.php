@@ -36,6 +36,9 @@ $Router->add('/amouv/deconnexion', ['controller' => 'UserC@signOut']);
 
 // Travel
 $Router->add('/amouv/voyage/creation', ['controller' => 'TravelC@createTravel']);
+$Router->add('/amouv/voyage/recherche', ['controller' => 'TravelC@searchTravel']);
+$Router->add('/amouv/voyage/resultats', ['controller' => 'travelC@resultTravel']);
+$Router->add('/amouv/voyage', ['controller' => 'travelC@focusTravel']);
 
 
 // Car
