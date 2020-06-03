@@ -33,8 +33,16 @@ session_start();
      * 
      */
     public function createCar() {
-        var_dump('slt gugux');
+        
+        if (!isset($_SESSION['formcar'])) {
+            if(empty($_POST['Voiture']) || empty($_POST['Places']) || empty($_POST['Couleur']) || empty($_POST['Motorisation'])){
+            $_SESSION['popup'] = new PopUp('error', 'Tout les champs doivent etre remplie');
+            header('location: /AMOUV/voiture/creation');
+            exit;
+        }
 
+            }
+            View::render('Car/carCreate',['']);
+     
     }// public function createCar()
-
  }
