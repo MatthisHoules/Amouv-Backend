@@ -1,0 +1,117 @@
+/* 
+    @title : searchTravel.css
+    @author : Matthis HOULES,
+              Mathieu LEBRUN,
+              Antoine DELAUNAY
+
+    @for : Amouv Covoiturage
+    
+    @validated-on : 13/05/2020
+
+    @brief : StyleSheet for search  & create travels pages
+*/
+
+main > section {
+    width : 100vw;  
+    max-width : 1024px;
+
+    margin-left : auto;
+    margin-right : auto;
+    margin-top : 75px;
+    margin-bottom : 75px;
+
+    display : flex;
+    flex-direction: column;
+
+    background-color : #5E6896;
+
+    padding-top : 20px;
+    padding-bottom : 20px;
+
+    border-radius : 10px;
+}
+
+
+.pageTitle {
+    font-size : 50px;
+    font-family: 'Bebas Neue', cursive;
+    color : #fff;
+    padding-left : 50px;
+}
+
+
+.row {
+    width : 100%;
+    display : flex;
+    flex-direction : row;
+    justify-content: space-around;
+    align-items : center;
+    flex-wrap : wrap;
+}
+
+.column {
+    width : 280px;
+    margin : 10px;
+    padding : 10px;
+
+    background-color : rgba(255, 255, 255, 0.1);
+
+    border-radius : 10px;
+
+    color : #fff;
+
+    font-size : 18px;
+    font-family: 'Jost', sans-serif;
+
+}
+
+.item {
+    text-align : center;
+    margin-top : 10px;
+    margin-bottom : 10px;
+}
+
+
+.buttonMore {
+    width : 200px;
+    margin : 10px;
+
+    padding : 7px 10px 7px 10px;
+    
+
+    background-color : #fff;
+    text-align : center;
+
+    border-radius : 10px;
+
+    font-size : 15px;
+
+    color : #4e598c;
+
+    transition : 0.2s;
+}
+.buttonMore:hover {
+    transform : translateY(-2px);
+    background-color : #f1f1f1;
+    transition : 0.2s;
+    cursor : pointer;
+}
+
+.buttonItem {
+    margin-top : 30px;
+}
+
+.descrItem {
+    color : #fff;
+    font-family: 'Jost', sans-serif;
+    font-size : 20px;
+}
+
+button.buttonMore {
+    border : none;
+}
+
+.title {
+    font-family: 'Bebas Neue', cursive !important;
+    font-size : 30px;
+}
