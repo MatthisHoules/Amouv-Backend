@@ -190,6 +190,43 @@ class User extends Model {
 
 
     /**
+     *  @name : getUserStats
+     * 
+     *  @param : userId : int (11)
+     * 
+     *  @return : array
+     *  
+     *  @brief : get count of travel as conductor & passenger
+     * 
+     */
+    public static function getUserStats($userId) {
+
+        $DB = static::DBConnect();
+
+        $stmt = $DB->prepare(' SELECT ( SELECT COUNT(*) 
+                                        FROM travel 
+                                        WHERE travel.id_Creator = ?
+                                    ) as NBVoyCrea,
+                                    
+                                      ( SELECT COUNT(*) 
+                                        FROM passenger 
+                                        WHERE passenger.passenger_id = ?
+                                    ) as NBVoyPass
+
+        ');
+
+        $stmt->execute([$userId, $userId]);
+
+        $result = $stmt->fetch();
+        
+        return $result;
+
+    } // public static function getUserStats($userId)
+
+
+
+
+    /**
      *  @name : getId
      *  
      *  @param : void
@@ -295,7 +332,7 @@ class User extends Model {
         return;
 
 
-    }
+    } // public static function setPassword($newPassword, $userId)
 
 }
 

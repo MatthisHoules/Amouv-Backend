@@ -22,6 +22,7 @@ class Travel extends Model {
     protected $seats;
     protected $smoking;
     protected $lugage;
+    protected $dateDeparture;
 
 
     /**
@@ -38,7 +39,7 @@ class Travel extends Model {
      *  
      *  @return : Travel
      */
-    function __construct($id, $user, $car, $departure, $arrival, $seats, $smoking, $lugage) {
+    function __construct($id, $user, $car, $departure, $arrival, $seats, $smoking, $lugage, $dateDeparture) {
 
         $this->id = $id;
         $this->user = $user;
@@ -48,6 +49,7 @@ class Travel extends Model {
         $this->seats = $seats;
         $this->smoking = $smoking;
         $this->lugage = $lugage;
+        $this->dateDeparture = $dateDeparture;
 
 
 
@@ -90,7 +92,7 @@ class Travel extends Model {
                         $departure,
                         $arrival,
                         $seats,
-                        $smoking,
+                        1,
                         $lugage
         ]);
 
@@ -118,7 +120,7 @@ class Travel extends Model {
                               FROM `travel`
                               JOIN `car` ON `travel`.`id_car` = `car`.`car_id`
                               JOIN `user` ON `user`.`id` = `travel`.`id_Creator`
-                              WHERE `id` = ?
+                              WHERE `travel_id` = ?
                             ');
         $stmt->execute([$travelId]);
 
@@ -138,12 +140,20 @@ class Travel extends Model {
                         1,
                         $result[0]['Id']
                     ),
-            null,
+            new Car (
+                        $result[0]['car_id'],
+                        $result[0]['color'],
+                        $result[0]['car_seat'],
+                        $result[0]['model'],
+                        $result[0]['motorization']
+                        
+                    ),
             $result[0]['departure'],
             $result[0]['arrival'],
             $result[0]['seats'],
             $result[0]['smoking'],
-            $result[0]['lugage']
+            $result[0]['lugage'],
+            $result[0]['date_dep']
             
         );
 
@@ -176,7 +186,7 @@ class Travel extends Model {
                                     `date_dep` >= DATE_SUB(FROM_UNIXTIME(?), INTERVAL 12 HOUR)
                                     OR `date_dep` <= DATE_SUB(FROM_UNIXTIME(?), INTERVAL -12 HOUR)
                                 )
-                              ORDER BY ABS(date_dep - FROM_UNIXTIME(?))
+                              ORDER BY ABS(FROM_UNIXTIME(?) - date_dep) desc
                             ");
         $stmt->execute([$cityStart, $cityEnd, $dateD, $dateD, $dateD]);
 
@@ -199,7 +209,9 @@ class Travel extends Model {
                 $result[$i]['arrival'],
                 $result[$i]['seats'],
                 $result[$i]['smoking'],
-                $result[$i]['lugage']
+                $result[$i]['lugage'],
+                $result[$i]['date_dep']
+
             ));
         }
 
@@ -208,10 +220,35 @@ class Travel extends Model {
     } // public static function searchTravels($cityStart, $cityEnd, $dateD)
 
 
+    /**
+     *  @name : getTravelPassenger
+     *  
+     *  @param int travelId
+     * 
+     *  @return array(User)
+     * 
+     */
+    public static function getCountTravelPassenger($travelId) {
+
+        $DB = static::DBConnect();
+
+        $stmt = $DB->prepare('SELECT COUNT(*) as NBPassenger
+                              FROM `passenger`
+                              WHERE `passenger`.`id_travel` = ?
+                              ');
+        
+        $stmt->execute(array($travelId));
+
+        $result = $stmt->fetchAll();
+        
+        return $result;
+
+
+    } // public static function getCountTravelPassenger($travelId)
 
 
 
-    public function getId(){
+	public function getId(){
 		return $this->id;
 	}
 
@@ -229,6 +266,58 @@ class Travel extends Model {
 
 	public function getCar(){
 		return $this->car;
+	}
+
+	public function setCar($car){
+		$this->car = $car;
+	}
+
+	public function getDeparture(){
+		return $this->departure;
+	}
+
+	public function setDeparture($departure){
+		$this->departure = $departure;
+	}
+
+	public function getArrival(){
+		return $this->arrival;
+	}
+
+	public function setArrival($arrival){
+		$this->arrival = $arrival;
+	}
+
+	public function getSeats(){
+		return $this->seats;
+	}
+
+	public function setSeats($seats){
+		$this->seats = $seats;
+	}
+
+	public function getSmoking(){
+		return $this->smoking;
+	}
+
+	public function setSmoking($smoking){
+		$this->smoking = $smoking;
+	}
+
+	public function getLugage(){
+		return $this->lugage;
+	}
+
+	public function setLugage($lugage){
+		$this->lugage = $lugage;
+	}
+
+	public function getDateDeparture(){
+		return $this->dateDeparture;
+	}
+
+	public function setDateDeparture($dateDeparture){
+		$this->dateDeparture = $dateDeparture;
 	}
 
 }
