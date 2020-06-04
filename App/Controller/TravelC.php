@@ -120,6 +120,12 @@ class TravelC {
                 
         }
 
+        if (empty($_SESSION['user']->getCars())) {
+            $_SESSION['popup'] =  new PopUp('error', 'Vous devez posséder une voiture.');
+            header('location: /amouv/voiture/creation');
+            exit(); 
+        }
+
         View::render('Travel/createTravel', []);
 
     } // public function createTravel()
@@ -211,7 +217,7 @@ class TravelC {
 
         $results = Travel::searchTravels($_GET['cityStart'], $_GET['cityEnd'], $dateDeparture);
 
-        var_dump($results);
+        View::render('Travel/resultTravel', ['travels' => $results]);
 
 
     } // public function resultTravel()
@@ -230,21 +236,39 @@ class TravelC {
 
         if (empty($_GET['id'])) {
             $_SESSION['popup'] = new PopUp('error', 'Erreur dans l\'URL, voyage recherché inconnu');
+ 
             header('location: /amouv/voyage/recherche');
             exit();
         }
 
         $travel = Travel::getTravel($_GET['id']);
         
+
         if (!$travel) {
             $_SESSION['popup'] = new PopUp('error', 'Erreur dans l\'URL, voyage recherché inconnu');
+
             header('location: /amouv/voyage/recherche');
             exit();
         }
 
 
-        var_dump($travel);
+        $stats = User::getUserStats($travel->getUser()->getId());
+
+        $stats['tot'] = $stats['NBVoyCrea'] + $stats['NBVoyPass'];
+
+
+        $NBPassenger = Travel::getCountTravelPassenger($_GET['id'])[0]['NBPassenger'];
+
+        View::render('Travel/focusTravel', [ 'travel' => $travel,
+                                             'stats' => $stats,
+                                             'nbPass' => $NBPassenger
+                                           ]);
 
     } // public function focusTravel()
+
+
+
+
+
 }
 
