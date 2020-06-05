@@ -454,6 +454,7 @@ footer {
     flex-direction : column;
     align-items : center;
 
+
 }
 .footerLogo {
     height : 40px;
@@ -627,7 +628,6 @@ footer {
     }
 
     footer {
-        margin-top : 64px;
-        margin-bottom : 64px;
+            display: none;
     }
 }
