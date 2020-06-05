@@ -44,6 +44,10 @@ $Router->add('/amouv/voyage', ['controller' => 'travelC@focusTravel']);
 // Car
 $Router->add('/amouv/voiture/creation', ['controller' => 'CarC@createCar']);
 
+
+// Discussion
+$Router->add('/amouv/discussion', ['controller' => 'DiscussionC@focusDiscussion']);
+
 $Router->initialize();
 
 
