@@ -13,6 +13,7 @@
 // imports
 require_once(__DIR__.'/../Model/User.php');
 require_once(__DIR__.'/../../Core/PopUp.php');
+require_once(__DIR__.'/../Model/Notification.php');
 session_start();
 
  class HomepageC {
