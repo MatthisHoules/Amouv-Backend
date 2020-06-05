@@ -25,7 +25,7 @@ $Router = new Router;
 // Homepage
 $Router->add('/amouv', ['controller' => 'HomepageC@show']);
 
-// Sign
+// Sign & User
 $Router->add('/amouv/connexion', ['controller' => 'UserC@signIn']);
 $Router->add('/amouv/inscription', ['controller' => 'UserC@signUp']);
 $Router->add('/amouv/validation', ['controller' => 'UserC@validateAccount']);
@@ -47,6 +47,9 @@ $Router->add('/amouv/voiture/creation', ['controller' => 'CarC@createCar']);
 
 // Discussion
 $Router->add('/amouv/discussion', ['controller' => 'DiscussionC@focusDiscussion']);
+
+// Notification
+$Router->add('/amouv/notification', ['controller' => 'NotificationC@notificationPage']);
 
 $Router->initialize();
 
