@@ -21,6 +21,7 @@ class User extends Model {
     protected $active;
     protected $id;
     protected $cars;
+    protected $notifications = [];
 
 
     /**
@@ -333,6 +334,17 @@ class User extends Model {
 
 
     } // public static function setPassword($newPassword, $userId)
+
+
+    public function getNotification() {
+        return $this->notication;
+    } // public function getNotification()
+
+    public function setNotification($listNotification) {
+
+        $this->notification = $listNotification;
+
+    } // public function setNotification()
 
 }
 
