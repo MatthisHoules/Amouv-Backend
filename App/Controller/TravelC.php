@@ -12,6 +12,7 @@
 
 // imports
 require_once(__DIR__.'/../Model/User.php');
+require_once(__DIR__.'/../Model/Passenger.php');
 require_once(__DIR__.'/../Model/Travel.php');
 require_once(__DIR__.'/../../Core/PopUp.php');
 require_once(__DIR__.'/../Model/Notification.php');
@@ -244,14 +245,63 @@ class TravelC {
             exit();
         }
 
-        $travel = Travel::getTravel($_GET['id']);
-        
+        $travel = Travel::getTravel($_GET['id']);        
 
         if (!$travel) {
             $_SESSION['popup'] = new PopUp('error', 'Erreur dans l\'URL, voyage recherché inconnu');
 
             header('location: /amouv/voyage/recherche');
             exit();
+        }
+
+        if (!empty($_POST['submit'])) {
+
+            // CHeck if user already in travel
+            $Passenger = new Passenger(
+                $_SESSION['user']->getMail(),
+                $_SESSION['user']->getLastname(),
+                $_SESSION['user']->getFirstname(),
+                $_SESSION['user']->getProfilePicture(),
+                $_SESSION['user']->getActive(),
+                $_SESSION['user']->getId()
+            );
+
+
+    
+            if (Passenger::isPassengerInTravel($_SESSION['user']->getId(), $travel)) {
+                $_SESSION['popup'] = new PopUp('error', 'Impossible, vous faites déja partie du voyage.');
+
+                header('location: /amouv/voyage?id='.$_GET['id']);
+                exit();
+            }
+
+
+            // check if user is conductor
+            if ($_SESSION['user']->getId() == $travel->getUser()->getId()) {
+                $_SESSION['popup'] = new PopUp('error', 'Vous ne pouvez pas conduire et être passager en même temps.');
+
+                header('location: /amouv/voyage?id='.$_GET['id']);
+                exit();
+            }
+
+
+            // create passenger
+            Passenger::createPassenger($_SESSION['user']->getId(), $travel->getId());
+
+            // Notify conductor
+            Notification::createNotification(
+                $travel->getUser()->getId(), 
+                $_SESSION['user']->getFirstname().' '.$_SESSION['user']->getLastname(). ' va faire partie de votre voyage !',
+                '/amouv/voyage?id='.$travel->getId()
+            );
+
+            
+            // Popup success
+            $_SESSION['popup'] = new PopUp('success', 'Vous faîtes maintenant partie du voyage !');
+            header('location: /amouv/voyage?id='.$_GET['id']);
+            exit();
+
+
         }
 
 

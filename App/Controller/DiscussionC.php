@@ -13,11 +13,13 @@
 
 // imports
 require_once(__DIR__.'/../Model/User.php');
+require_once(__DIR__.'/../Model/Passenger.php');
 require_once(__DIR__.'/../Model/Travel.php');
 require_once(__DIR__.'/../Model/Discussion.php');
 require_once(__DIR__.'/../Model/Message.php');
 require_once(__DIR__.'/../../Core/PopUp.php');
 require_once(__DIR__.'/../Model/Notification.php');
+
 session_start();
 
 
