@@ -28,7 +28,7 @@
                 <span class="spanTitle">
                     Départ :
                 </span>
-                <?= $travel->getDeparture() ?>, arrivée : <?=  $travel->getArrival() ?>
+                <?= htmlspecialchars($travel->getDeparture()) ?>, arrivée : <?=  htmlspecialchars($travel->getArrival()) ?>
             </span>
 
             <span>
@@ -63,12 +63,12 @@
                 <div class="messageU <?= $divClass ?>">
                     <p class="text">
                         <?= 
-                            $message->getMessage();
+                            htmlspecialchars($message->getMessage());
                         ?>
                     </p>
                     <p class="author">
                         <?= 
-                            $message->getUser()->getFirstname(). ' ' .$message->getUser()->getLastname();
+                            htmlspecialchars($message->getUser()->getFirstname()). ' ' .htmlspecialchars($message->getUser()->getLastname());
                             ?>
                             <?= 
                                 $message->getCreated_at();

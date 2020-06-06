@@ -35,14 +35,14 @@ async defer></script>
                             Voyage
                         </p>
                         <p class="item">
-                            Départ : <?= $travel->getDeparture() ?>
+                            Départ : <?= htmlspecialchars($travel->getDeparture()) ?>
                         </p>
                         <p class="item">
-                            Départ : <?= $travel->getArrival() ?>
+                            Départ : <?= htmlspecialchars($travel->getArrival()) ?>
                         </p>
                         <p class="item">
                             Date et heure du départ : 
-                            <br><?= $travel->getDateDeparture() ?>
+                            <br><?= htmlspecialchars($travel->getDateDeparture()) ?>
                         </p>
                     </div>
 
@@ -51,13 +51,13 @@ async defer></script>
                             Voiture
                         </p>
                         <p class="item">
-                            <?= ucfirst($travel->getCar()->getModel()) ?>
+                            <?= htmlspecialchars(ucfirst($travel->getCar()->getModel())) ?>
                         </p>
                         <p class="item">
-                            <?= $travel->getCar()->getCar_seat() ?> places
+                            <?= htmlspecialchars($travel->getCar()->getCar_seat()) ?> places
                         </p>
                         <p class="item">
-                            Moteur <?= $travel->getCar()->getMotorization() ?>
+                            Moteur <?= htmlspecialchars($travel->getCar()->getMotorization()) ?>
                         </p>
                     </div>
                 </div>
@@ -67,10 +67,10 @@ async defer></script>
                         Conducteur
                     </p>
                     <p class="item">
-                        <?= $travel->getUser()->getFirstname(). ' '.$travel->getUser()->getLastname() ?>
+                        <?= htmlspecialchars($travel->getUser()->getFirstname()). ' '.htmlspecialchars($travel->getUser()->getLastname()) ?>
                     </p>
                     <p class="item">
-                        <?= $travel->getUser()->getMail() ?>
+                        <?= htmlspecialchars($travel->getUser()->getMail()) ?>
                     </p>
                     <p class="Title">
                         Statistiques
@@ -106,11 +106,16 @@ async defer></script>
                         en passager
                     </p>
 
+
+                    <?php  if ($_SESSION['user']->getId() != $travel->getUser()->getId()) { ?>
+
                     <p class="item buttonItem">
-                        <a href="/amouv/discussion?travelId=<?=$travel->getUser()->getId()?>" class="buttonMore message">
+                        <a href="/amouv/discussion?travelId=<?=$travel->getId()?>" class="buttonMore message">
                             Envoyer un message  <i class="fas fa-envelope-open-text"></i>
                         </a>
                     </p>
+
+                    <?php } ?>
                 </div>
            </div>
 
@@ -126,22 +131,25 @@ async defer></script>
 
            <div class="item">
 
-                <?php
-                    if ($nbPass != $travel->getSeats()) {
-                ?>
+                <?php    if ($nbPass != $travel->getSeats()) { ?>
 
-                    <p class="descrItem">
-                        Il y a actuellement <?= $nbPass ?> réservation pour ce voyage sur <?= $travel->getSeats() ?> places au total. <?= $travel->getLugage() ?> bagage(s) par personne.
-                    </p>
+                        <p class="descrItem">
+                            Il y a actuellement <?= $nbPass ?> réservation pour ce voyage sur <?= $travel->getSeats() ?> places au total. <?= $travel->getLugage() ?> bagage(s) par personne.
+                        </p>
 
-                    <form action="" method="post">
-                        <button type="submit" class="buttonMore message">
-                            Réserver une place <i class="fas fa-car"></i>
-                        </button>
-                        
-                    </form>
+                        <?php if (!Passenger::isPassengerInTravel($_SESSION['user']->getId(), $travel)) { ?>
+                        <form action="" method="post">
+                            <button type="submit" class="buttonMore message" name="submit" value="submit">
+                                Réserver une place <i class="fas fa-car"></i>
+                            </button>
+            
 
                 <?php 
+                        } else { ?>
+                            <p class="descrItem">
+                                Vous faîtes déja partie de ce voyage !
+                            </p>
+                <?php } 
                     } else {
                 ?>
 

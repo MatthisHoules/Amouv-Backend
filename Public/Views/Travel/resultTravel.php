@@ -84,16 +84,16 @@ async defer></script>
                     <div class="travel">
                         <div class="column">
                             <p class="DepartureCity">
-                                <?= $value->getDeparture() ?>
+                                <?= htmlspecialchars($value->getDeparture()) ?>
                             </p>
                             <p class="arrivalCity">
-                                <?= $value->getArrival() ?>
+                                <?= htmlspecialchars($value->getArrival()) ?>
                             </p>
                             <p class="timeDeparture">
-                                <?= $value->getDateDeparture() ?>
+                                <?= htmlspecialchars($value->getDateDeparture()) ?>
                             </p>
                             <p class="creator">
-                                <?= $value->getUser()->getFirstname().' '.$value->getUser()->getLastname() ?>
+                                <?= htmlspecialchars($value->getUser()->getFirstname()).' '.htmlspecialchars($value->getUser()->getLastname()) ?>
                             </p>
                         </div>
 

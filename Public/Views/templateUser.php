@@ -50,10 +50,10 @@
             </button>
             <div class="topSidebar">
                 <p class="mainTitle">
-                    <?= $_SESSION['user']->getFirstname().' '.$_SESSION['user']->getLastname() ?>
+                    <?= htmlspecialchars($_SESSION['user']->getFirstname()).' '.htmlspecialchars($_SESSION['user']->getLastname()) ?>
                 </p>
                 <p class="secondTitle userSecondTitle">
-                    <?= strtolower($_SESSION['user']->getMail()); ?>
+                    <?= htmlspecialchars(strtolower($_SESSION['user']->getMail())); ?>
                 </p>
         
                 <button class="sideLink">
@@ -116,7 +116,13 @@
                     
                     <button class="userHeaderBtns" id="notificationButton">
                         <i class="fas fa-bell"></i>
+                        <?php
+                            if (Notification::notificationUserNotRead($_SESSION['user'])) {
+                        ?>
                         <span class="notifActive"></span>
+                        <?php
+                            }
+                        ?>
                     </button>
                     <div class="notificationsContainer">
     
@@ -124,98 +130,33 @@
                         <div class="notificationsList" id="notificationList">
                             <div class="l">
 
-                                <a href="">
-                                    <div class="notification notread">
+                                <?php
+                                    foreach ($_SESSION['user']->getNotification() as $id => $notification) {
+                                        if ($notification->getActive() == 0) {
+                                            $read = '';
+                                        } else {
+                                            $read = 'notread';
+                                        }
+
+                                ?>
+
+                                <a href="/amouv/notification?id=<?=$id?>">
+                                    <div class="notification <?= $read ?>">
                                         <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+                                            <?= $notification->getMessage() ?>
                                         </p>
                                         <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
-                                        </p>
-                                    </div>
-                                    <div class="notification ">
-                                        <p class="messageNotif">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                                        </p>
-                                        <p class="dateNotif">
-                                            le xx/xx/xx
-                                            à Xx:XX
+                                            <?= $notification->getCreated_at()?>
+                                    
                                         </p>
                                     </div>
                                 </a>
+
+                            
+
+                                <?php
+                                    }
+                                ?>
     
                             </div>
                         </div>
