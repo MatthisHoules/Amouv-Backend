@@ -88,7 +88,6 @@ class Message extends Model {
         return $listMessage;
 
 
-
     } // public static function getDiscussionMessage($discussion_id)
 
 

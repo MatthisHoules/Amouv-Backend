@@ -337,7 +337,7 @@ class User extends Model {
 
 
     public function getNotification() {
-        return $this->notication;
+        return $this->notification;
     } // public function getNotification()
 
     public function setNotification($listNotification) {

@@ -13,7 +13,6 @@
 class Notification extends Model {
 
     protected $id;
-    protected $user;
     protected $message;
     protected $link;
     protected $created_at;
@@ -63,6 +62,8 @@ class Notification extends Model {
         $stmt = $DB->prepare('SELECT * 
                               FROM `notification`
                               WHERE `notification`.`id_user` = ?
+                              ORDER BY `notification`.`created_at` DESC
+                              LIMIT 10
                              ');
         $stmt->execute(array($user_id));
 
@@ -111,11 +112,11 @@ class Notification extends Model {
         }
 
         return new Notification (
-            $results[0]['notification_id'],
-            $results[0]['message'],
-            $results[0]['link'],
-            $results[0]['created_at'],
-            $results[0]['active']
+            $result[0]['notification_id'],
+            $result[0]['message'],
+            $result[0]['link'],
+            $result[0]['created_at'],
+            $result[0]['active']
         );
         
     } //  public static function getNotification($notification_id)
@@ -129,11 +130,10 @@ class Notification extends Model {
      *  @param int $user_id
      *  @param string $message
      *  @param string $link
-     *  @param string $created_at
      * 
      *  @return void 
      */
-    public static function createNotification ($user_id, $message, $link, $created_at) {
+    public static function createNotification ($user_id, $message, $link) {
         $DB = static::DBConnect();
 
         $stmt = $DB->prepare('INSERT INTO `notification` (`notification_id`, `id_user`, `message`, `link`, `created_at`, `active`) 
@@ -142,13 +142,58 @@ class Notification extends Model {
         $stmt->execute([
             $user_id,
             $message, 
-            $link,
-            $created_at
+            $link        
         ]);
 
         return;
 
     } // public static function createNotification ($user_id, $message, $link, $created_at, $active)
+
+
+
+
+
+    /**
+     *  @name notificationBelongsToUser
+     *  
+     *  @param User : $user
+     * 
+     *  @return bool : true if notification belong to the User, false instead
+     */
+    public function notificationBelongsToUser($user) {
+
+        $listNotificationUser = array_keys($user->getNotification());
+
+        if (in_array($this->getId(), $listNotificationUser)){
+            return true;
+        }
+        return false;
+
+    } // public function notificationBelongToUser($user)
+
+
+
+    /**
+     * 
+     *  @name : notificationUserNotRead
+     * 
+     *  @param : User $user
+     * 
+     *  @return bool if there are notification not read true, false instead
+     * 
+     */
+    public static function notificationUserNotRead($user) {
+
+        foreach ($user->getNotification() as $id => $notification) {
+
+            // if notification not read
+            if ($notification->getActive() == 1) {
+                return true;
+            }
+        }
+        return false;
+
+    } // public static function notificationUserNotRead($user)
 
 
 
@@ -199,6 +244,21 @@ class Notification extends Model {
         return;
 	} // public function setActive($active)
 
+    public function getCreated_at(){
+		return $this->created_at;
+	}
+
+	public function setCreated_at($created_at){
+		$this->created_at = $created_at;
+    }
+    
+    public function getLink(){
+		return $this->link;
+	}
+
+	public function setLink($link){
+		$this->link = $link;
+	}
 
 } // class Notification 
 

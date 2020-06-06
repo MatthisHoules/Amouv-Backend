@@ -16,8 +16,8 @@ class Discussion extends Model {
 
     protected $id;
     protected $travel_id;
-    protected $id_creator;
-    protected $id_passenger;
+    protected $creator;
+    protected $passenger;
     protected $listMessages = [];
 
 
@@ -27,16 +27,16 @@ class Discussion extends Model {
      * 
      *  @param int $id
      *  @param int $travel_id
-     *  @param int $id_creator
-     *  @param int $id_passenger
+     *  @param User $creator
+     *  @param User $passenger
      *  @param array(Message) $listMessages
      * 
      */
-    function __construct($id, $travel_id, $id_creator, $id_passenger, $listMessages) {
+    function __construct($id, $travel_id, $creator, $passenger, $listMessages) {
         $this->id = $id;
         $this->travel_id = $travel_id;
-        $this->id_creator = $id_creator;
-        $this->id_passenger = $id_passenger;
+        $this->creator = $creator;
+        $this->passenger = $passenger;
         $this->listMessages = $listMessages;
 
     }
@@ -54,8 +54,14 @@ class Discussion extends Model {
     public static function getDiscussionById($discussion_id) {
         $DB = static::DBConnect();
 
-        $stmt = $DB->prepare('SELECT *
-                              FROM `discussion`
+        $stmt = $DB->prepare('SELECT `discuss_id`,`id_creator`,`id_passenger`,`id_travel`,
+                                `creator`.id cid, `creator`.firstname cfirstname, `creator`.lastname clastname, `creator`.email cemail, `creator`.profileImg cprofileimg, `creator`.active cactive,
+                                `passenger`.id pid, `passenger`.firstname pfirstname, `passenger`.lastname plastname, `passenger`.email pemail, `passenger`.profileImg pprofileimg, `passenger`.active pactive
+                                
+                                FROM `discussion`
+                                
+                                JOIN `user` as `creator` ON `creator`.id = `discussion`.`id_creator`
+                                JOIN `user` as `passenger` ON `passenger`.id = `discussion`.`id_creator`
                               WHERE `discussion`.`discuss_id` = ?');
         
         $stmt->execute(array($discussion_id));
@@ -76,8 +82,22 @@ class Discussion extends Model {
         return new Discussion (
             $result[0]['discuss_id'],
             $result[0]['id_travel'],
-            $result[0]['id_creator'],
-            $result[0]['id_passenger'],
+            new User(
+                $result[0]['cemail'],
+                $result[0]['clastname'],
+                $result[0]['cfirstname'],
+                $result[0]['clastname'],
+                $result[0]['cprofileimg'],
+                $result[0]['cid']
+            ),
+            new User(
+                $result[0]['pemail'],
+                $result[0]['plastname'],
+                $result[0]['pfirstname'],
+                $result[0]['plastname'],
+                $result[0]['pprofileimg'],
+                $result[0]['pid']
+            ),
             $listMessages
         );
 
@@ -99,8 +119,14 @@ class Discussion extends Model {
 
         $DB = static::DBConnect();
 
-        $stmt = $DB->prepare('SELECT *
-                              FROM `discussion`
+        $stmt = $DB->prepare('SELECT `discuss_id`,`id_creator`,`id_passenger`,`id_travel`,
+                                `creator`.id cid, `creator`.firstname cfirstname, `creator`.lastname clastname, `creator`.email cemail, `creator`.profileImg cprofileimg, `creator`.active cactive,
+                                `passenger`.id pid, `passenger`.firstname pfirstname, `passenger`.lastname plastname, `passenger`.email pemail, `passenger`.profileImg pprofileimg, `passenger`.active pactive
+                                
+                                FROM `discussion`
+                                
+                                JOIN `user` as `creator` ON `creator`.id = `discussion`.`id_creator`
+                                JOIN `user` as `passenger` ON `passenger`.id = `discussion`.`id_creator`
                               WHERE `discussion`.`id_travel` = ?
                               AND   `discussion`.`id_passenger` = ?');
         
@@ -121,8 +147,22 @@ class Discussion extends Model {
         return new Discussion (
             $result[0]['discuss_id'],
             $result[0]['id_travel'],
-            $result[0]['id_creator'],
-            $result[0]['id_passenger'],
+            new User(
+                $result[0]['cemail'],
+                $result[0]['clastname'],
+                $result[0]['cfirstname'],
+                $result[0]['clastname'],
+                $result[0]['cprofilepicture'],
+                $result[0]['cid']
+            ),
+            new User(
+                $result[0]['pemail'],
+                $result[0]['plastname'],
+                $result[0]['pfirstname'],
+                $result[0]['plastname'],
+                $result[0]['pprofilepicture'],
+                $result[0]['pid']
+            ),
             $listMessages
         );
 
@@ -186,6 +226,25 @@ class Discussion extends Model {
 
 
 
+    /**
+     *  @name : getOtherId
+     * 
+     *  @param int $user_id : session user id
+     * 
+     *  @return int the other id in the discussion
+     * 
+     */
+    public function getOtherId($user_id) {
+
+        if ($user_id == $this->getCreator()->getId()) {
+            return $this->getPassenger()->getId();
+        } 
+        return $this->getCreator()->getId();
+        
+
+    } // public function getOtherId($user_id)
+
+
 
     /*
         GETTERS SETTERS
@@ -206,21 +265,16 @@ class Discussion extends Model {
 		$this->travel_id = $travel_id;
 	}
 
-	public function getId_creator(){
-		return $this->id_creator;
+	public function getCreator(){
+		return $this->creator;
 	}
 
-	public function setId_creator($id_creator){
-		$this->id_creator = $id_creator;
+
+	public function getPassenger(){
+		return $this->passenger;
 	}
 
-	public function getId_passenger(){
-		return $this->id_passenger;
-	}
 
-	public function setId_passenger($id_passenger){
-		$this->id_passenger = $id_passenger;
-	}
 
 	public function getListMessages(){
 		return $this->listMessages;
