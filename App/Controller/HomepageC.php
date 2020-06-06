@@ -18,6 +18,26 @@ session_start();
 
  class HomepageC {
 
+
+    /**
+     *  @name __construct
+     * 
+     *  @param void
+     *  @return void
+     * 
+     *  @brief : Homepage Middleware
+     */
+    function __construct() {
+
+        if (isset($_SESSION) && !(empty($_SESSION['user']))) {
+            $_SESSION['user']->setNotification(Notification::getListNotification($_SESSION['user']->getId()));
+        }
+
+    } // function __construct()
+
+
+
+
     /**
      *  @name : show
      *  @param : void

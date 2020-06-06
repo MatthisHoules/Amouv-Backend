@@ -40,6 +40,8 @@ class DiscussionC {
             header('location: /AMOUV/connexion');
         }
 
+        $_SESSION['user']->setNotification(Notification::getListNotification($_SESSION['user']->getId()));
+
     } // function __construct()
 
 
@@ -100,6 +102,16 @@ class DiscussionC {
                 }
                 
                 Message::insertMsg($Discussion->getId(), $_POST['messageInput'], $_SESSION['user']->getId());
+
+                // notification
+                Notification::createNotification(
+                    $Discussion->getOtherId($_SESSION['user']->getId()), 
+                    'Vous avez un nouveau message de '.$_SESSION['user']->getFirstname().' '.$_SESSION['user']->getLastname(),
+                    '/amouv/discussion?discussId='.$Discussion->getId()
+                );
+
+
+
                 $_SESSION['popup'] = new PopUp('success', 'Message envoyé !');
                 header('location: /amouv/discussion?travelId='.$_GET['travelId']);
                 exit();
@@ -114,6 +126,7 @@ class DiscussionC {
                 header('location: /amouv/discussion?travelId='.$_GET['travelId']);
                 exit();
             }
+
 
             // check if user in conductor or passenger
             if (!Discussion::isUserInDiscussion($_SESSION['user']->getId())) {
@@ -138,6 +151,14 @@ class DiscussionC {
 
                 Message::insertMsg($Discussion->getId(), $_POST['messageInput'], $_SESSION['user']->getId());
                 $_SESSION['popup'] = new PopUp('success', 'Message envoyé !');
+
+                           
+                Notification::createNotification(
+                    $Discussion->getOtherId($_SESSION['user']->getId()), 
+                    'Vous avez un nouveau message de '.$_SESSION['user']->getFirstname().' '.$_SESSION['user']->getLastname(),
+                    '/amouv/discussion?discussId='.$Discussion->getId()
+                );
+
                 header('location: /amouv/discussion?discussId='.$_GET['discussId']);
                 exit();
 

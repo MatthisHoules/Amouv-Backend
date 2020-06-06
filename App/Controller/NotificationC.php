@@ -58,7 +58,7 @@ class NotificationC {
      */
     public function notificationPage() {
 
-        if (empty($_GET['id']) || !is_int($_GET['id'])) {
+        if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
             $_SESSION['popup'] = new PopUp('error', 'Erreur redirection notification');
             header('location: /AMOUV/');
             exit();
@@ -68,18 +68,34 @@ class NotificationC {
         // check if notification exists
         $notification = Notification::getNotification($_GET['id']);
 
+
         // notification not exists
-        if (!$notication) {
+        if (!$notification) {
             $_SESSION['popup'] = new PopUp('error', 'Erreur redirection notification');
             header('location: /AMOUV/');
             exit();
         }
 
 
-        // check if 
+        // check if notification belongs to user
+        if (!$notification->notificationBelongsToUser($_SESSION['user'])) {
+            $_SESSION['popup'] = new PopUp('error', 'La notification ne vous appartient pas');
+            header('location: /AMOUV/');
+            exit();
+        } 
 
 
+        // check if notification has been never read
+        if ($notification->getActive() == 1) {
 
+            // mark notification red
+            $notification->setActive(0);
+        } 
+
+
+        // redirection 
+        header('location: '.$notification->getLink());
+        exit();
 
     } // public function notificationPage()
 

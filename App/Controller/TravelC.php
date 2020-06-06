@@ -38,6 +38,8 @@ class TravelC {
             $_SESSION['popup'] = new PopUp('error', 'vous devez être connecté pour pouvoir accéder à cette page');
             header('location: /AMOUV/connexion');
         }
+        $_SESSION['user']->setNotification(Notification::getListNotification($_SESSION['user']->getId()));
+
 
     } // function __construct()
 
