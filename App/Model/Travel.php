@@ -23,6 +23,7 @@ class Travel extends Model {
     protected $smoking;
     protected $lugage;
     protected $dateDeparture;
+    protected $listPassenger = [];
 
 
     /**
@@ -51,6 +52,7 @@ class Travel extends Model {
         $this->lugage = $lugage;
         $this->dateDeparture = $dateDeparture;
 
+        $this->listPassenger = Passenger::getTravelPassenger($this->getId());
 
 
     } // function __construct($id, $user, $car, $departure, $arrival, $seats, $smoking, $lugage)
@@ -220,6 +222,8 @@ class Travel extends Model {
     } // public static function searchTravels($cityStart, $cityEnd, $dateD)
 
 
+
+    
     /**
      *  @name : getTravelPassenger
      *  
@@ -318,6 +322,13 @@ class Travel extends Model {
 
 	public function setDateDeparture($dateDeparture){
 		$this->dateDeparture = $dateDeparture;
-	}
+    }
+    
+    public function getListPassenger() {
+        return $this->listPassenger;
+    }
+    public function setListPassenger($listPassenger) {
+        $this->listPassenger = $listPassenger;
+    }
 
 }

@@ -152,7 +152,7 @@ class Discussion extends Model {
                 $result[0]['clastname'],
                 $result[0]['cfirstname'],
                 $result[0]['clastname'],
-                $result[0]['cprofilepicture'],
+                $result[0]['cprofileimg'],
                 $result[0]['cid']
             ),
             new User(
@@ -160,7 +160,7 @@ class Discussion extends Model {
                 $result[0]['plastname'],
                 $result[0]['pfirstname'],
                 $result[0]['plastname'],
-                $result[0]['pprofilepicture'],
+                $result[0]['pprofileimg'],
                 $result[0]['pid']
             ),
             $listMessages
@@ -240,7 +240,7 @@ class Discussion extends Model {
             return $this->getPassenger()->getId();
         } 
         return $this->getCreator()->getId();
-        
+
 
     } // public function getOtherId($user_id)
 
