@@ -51,6 +51,10 @@ $Router->add('/amouv/discussion', ['controller' => 'DiscussionC@focusDiscussion'
 // Notification
 $Router->add('/amouv/notification', ['controller' => 'NotificationC@notificationPage']);
 
+// Profile
+$Router->add('/amouv/profile', ['controller' => 'ProfileC@userProfile']);
+$Router->add('/amouv/me/profile', ['controller' => 'ProfileC@myProfile']);
+
 $Router->initialize();
 
 
