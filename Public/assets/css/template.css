@@ -434,7 +434,7 @@ header {
 }
 .notificationsList .l {
     width : 100%;
-    height : 100;
+    height : 100%;
     overflow-y : scroll;
 }
 
@@ -483,6 +483,18 @@ footer {
 }
 .socialNetwork:hover {
     color : #eaae3e;
+    transition : 0.2s;
+}
+
+.linkProfile {
+    color : #fff;
+    transition : 0.2s;
+}
+.linkProfile:hover i {
+    margin-left : 5px;
+    transition : 0.2s;
+}
+.linkProfile i {
     transition : 0.2s;
 }
 

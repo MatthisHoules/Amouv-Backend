@@ -1,0 +1,150 @@
+/* 
+    @title : profile.css
+    @author : Matthis HOULES,
+              Mathieu LEBRUN,
+              Antoine DELAUNAY
+
+    @for : Amouv Covoiturage
+    
+    @validated-on : 13/05/2020
+
+    @brief : StyleSheet for profile and my profile
+*/
+main > section {
+    width : 100vw;  
+    max-width : 1024px;
+
+    margin-left : auto;
+    margin-right : auto;
+    margin-top : 75px;
+    margin-bottom : 75px;
+
+    display : flex;
+    flex-direction: column;
+
+    background-color : #5E6896;
+
+    padding-top : 20px;
+    padding-bottom : 20px;
+
+    border-radius : 10px;
+}
+
+.row {
+    width : 100%;
+    display : flex;
+    flex-direction : row;
+    justify-content: space-around;
+    flex-wrap : wrap;
+}
+
+.column {
+    width : 280px;
+    margin : 10px;
+    padding : 10px;
+}
+
+.title {
+    font-family: 'Jost', sans-serif;
+    font-size : 22px;
+}
+
+.line {
+    text-align : justify;
+    font-size : 18px;
+    font-family: 'Jost', sans-serif;
+    color : #fff;
+}
+
+.item {
+    font-size : 18px;
+    font-family: 'Jost', sans-serif;
+    color : #fff;
+}
+
+.pageTitle {
+    font-size : 50px;
+    font-family: 'Bebas Neue', cursive;
+    color : #fff;
+    padding-left : 50px;
+}
+
+.carList, .voyageList {
+    width : 100%;
+
+    display : flex;
+    flex-direction : row;
+    justify-content: space-around;
+    flex-wrap : wrap;
+}
+
+.car, .voyage {
+    width : 280px;
+
+    margin : 10px;
+    padding : 10px;
+
+    background-color : rgba(255,255,255,0.1);
+    border-radius : 5px;
+}
+
+.departureArrivalC {
+    width : 100%;
+
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+
+    padding : 0;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    margin : 0;
+}
+
+.departureArrivalC .line {
+    text-align : center;
+}
+.departure {
+    width : 100%;
+    text-align: center;
+}
+
+
+.more {
+    width : 200px;
+    margin : 10px;
+
+    padding : 10px;
+
+    background-color : #fff;
+    text-align : center;
+
+    border-radius : 10px;
+
+    font-size : 15px;
+
+    color : #4e598c;
+
+    transition : 0.2s;
+}
+.more:hover {
+    transform : translateY(-2px);
+    background-color : #f1f1f1;
+    transition : 0.2s;
+}
+
+.buttonLIne {
+    width : 100%;
+
+    margin-top : 20px;
+    margin-bottom : 20px;
+    text-align: center;
+}
+
+
+@media screen and (max-width : 768px) {
+    .pageTitle {
+        padding : 0;
+        text-align: center;
+    }
+}
