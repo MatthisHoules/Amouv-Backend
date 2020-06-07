@@ -47,7 +47,8 @@ session_start();
      * 
      */
     public function show() {
-        View::render('Homepage/homepage', ['slt' => 'bonjour']);
+
+        View::render('Homepage/homepage', []);
     
     } // public function show()
 
