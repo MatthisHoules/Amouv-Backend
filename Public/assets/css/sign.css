@@ -1,0 +1,236 @@
+/**
+ *  
+ *  @title : sign.css
+ *  @author : Matthis HOULES
+ *  @author : Antoine DELAUNAY
+ *  @author : Mathieu LEBRUN
+ *      
+ *  @brief : template signs pages (Sign in, sign up, password forgotten)
+ * 
+ */
+
+
+ /* 
+    Fonts import
+*/
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost&display=swap');
+
+/* 
+    font-family: 'Bebas Neue', cursive;
+    font-family: 'Jost', sans-serif;
+*/
+
+
+/* 
+    General presets
+*/
+.preload * {
+    transition : none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+}
+
+* {
+    margin : 0;
+    padding : 0;
+
+    border-collapse: collapse;
+}
+
+body {
+    width : 100vw;
+    min-height : 100vh;
+    overflow-x : hidden;
+
+
+    display : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items: center;
+}
+
+li {
+    list-style: none;
+}
+
+
+a {
+    text-decoration: none;
+    color : #212121;
+}
+a:active {
+    color : #212121;
+}
+
+*:focus {
+    outline : none;
+}
+
+
+textarea {
+    resize : none;
+}
+
+
+
+
+/* 
+    form
+*/
+main {
+    max-width : 500px;
+    min-width : 320px;
+    width : 100vw;
+
+    padding-top : 25px;
+    padding-bottom : 40px;
+
+    display : flex;
+    flex-direction : column;
+    align-items : stretch;
+
+    background-color : #5e6896;
+
+    border-radius : 10px;
+
+    position : relative;
+}
+
+.backButton {
+    display : flex;
+    flex-direction : row;
+    justify-content: flex-start;
+    align-items : center;
+
+    color : #fff;
+
+    font-size : 30px;
+
+    position : absolute;
+    top : 10px;
+    left : 10px;
+}
+.signLogo {
+    height : 70px;
+    margin-left : 27%;
+    margin-right : auto;
+    margin-bottom : 10px;
+}
+
+.signTitle {
+    margin-left : auto;
+    margin-right : auto;
+    text-align : center;
+
+    font-family: 'Jost', sans-serif;
+
+    color : #fff;
+
+    font-size : 30px;
+}
+
+.inputContainer {
+    display : flex;
+    flex-direction : column;
+    align-items : flex-start;
+
+    width : 250px;
+
+    margin : 20px auto 20px auto;
+}
+.inputContainer label {
+    font-family: 'Jost', sans-serif;
+    font-size : 15px;
+    color : #fff;
+}
+.inputContainer input {
+    font-family: 'Jost', sans-serif;
+
+    font-size : 15px;
+
+    padding : 10px 0px 10px;
+
+    text-align : center;
+
+    color : #fff;
+
+    background-color : rgba(255,255,255,0.2);
+    border : 2px solid #fff;
+    border-radius : 10px;
+
+    width : 250px;
+
+}
+
+.pwdInput {
+    width : 254px;
+
+    display : flex;
+    flex-direction : row;
+}
+
+.pwdInput input {
+    width : calc(254px - 40px);
+    border-radius : initial;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+}
+
+.pwdInput button {
+    width : 40px;
+
+    background-color : #fff;
+    border : none;
+
+    font-size : 20px;
+
+    color : #4E598C;
+
+    border-top-right-radius : 10px;
+    border-bottom-right-radius : 10px;
+
+    border-radius : 2px #fff;
+
+    transition : 0.2s;
+
+}
+.pwdInput button:hover {
+    background-color : #e1e1e1;
+    transition : 0.2s;
+    cursor : pointer;
+}
+
+.buttonContainer {
+    width : 100%;
+
+    display : flex;
+    flex-direction : row;
+    justify-content: center;
+}
+button[type="submit"] {
+    text-align: center;
+
+    padding : 7px 10px 7px 10px;
+
+    background : #fff;
+    border : none;
+
+    border-radius : 5px;
+    font-family: 'Jost', sans-serif;
+
+    cursor : pointer;
+
+    font-size : 14px;
+
+    margin-top : 10px;
+
+    color : #4E598C;
+}
+button[type="submit"]:hover {
+    background-color : #e1e1e1;
+    transition : 0.2s;
+    cursor : pointer;
+}

@@ -1,0 +1,633 @@
+/**
+ *  
+ *   @title : template.css
+ *  @author : Matthis HOULES
+ *  @author : Antoine DELAUNAY
+ *  @author : Mathieu LEBRUN
+ *      
+ *  @brief : template stylesheet page
+ * 
+ */
+
+
+/* 
+    Fonts import
+*/
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost&display=swap');
+
+/* 
+    font-family: 'Bebas Neue', cursive;
+    font-family: 'Jost', sans-serif;
+*/
+
+
+/* 
+    General presets
+*/
+.preload * {
+    transition : none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+}
+
+* {
+    margin : 0;
+    padding : 0;
+
+    border-collapse: collapse;
+}
+
+body {
+    width : 100vw;
+    min-height : 100vh;
+    overflow-x : hidden;
+}
+
+li {
+    list-style: none;
+}
+
+
+a {
+    text-decoration: none;
+    color : #212121;
+}
+a:active {
+    color : #212121;
+}
+
+*:focus {
+    outline : none;
+}
+
+
+textarea {
+    resize : none;
+}
+
+
+/* 
+    header
+*/
+header {
+    width : 100vw;
+    height : 60px;
+
+    display : flex;
+    flex-direction : row;
+    justify-content: center;
+    align-items: center;
+}
+.headerContent {
+    max-width: 1024px;
+    width : 95vw;
+    min-width : 320px;
+    height : 100%;
+
+    display : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerTriggersContainer {
+    display : flex;
+    flex-direction : row;
+}
+
+.signButton {
+    padding : 7px;
+
+    background-color : #6d76a0;
+    border : none;
+
+    font-family: 'Jost', sans-serif;
+    font-size : 15px;
+    color : #fff;
+
+    border-radius : 5px;
+    cursor : pointer;
+
+    transition : 0.2s;
+}
+.signButton:hover {
+    background-color : #4e598c;
+    transition : 0.2s;
+}
+.signButton:active {
+    transform : scale(0.95);
+    transition : 0.2s;
+}
+
+.signContainer {
+    margin-right : 10px;
+    padding-right : 10px;
+
+    border-right : 1px solid #e1e1e1;
+}
+
+.menuTrigger {
+    font-size : 25px;
+    color : #4e598c;
+    
+    background : none;
+    border : none;
+    
+    cursor : pointer;
+    transition : 0.2s;
+}
+.menuTrigger > i {
+    transition : 0.2s;
+}
+.menuTrigger:hover i {
+    transform : rotate(-90deg);
+    transition : 0.2s;
+}
+
+
+/* 
+    side bar
+*/
+
+.navbarOverlay.toggle {
+    visibility:visible;
+    opacity:1;
+}
+
+
+.sideBar {
+    width : 270px;
+    height : 100%;
+
+    position : fixed !important;
+    top : 0;
+    right : -270px;
+
+    display : flex;
+    flex-direction : column;
+    align-items : stretch;
+    justify-content: flex-start;
+
+    background-color : #5e6896; 
+
+    z-index : 10;
+}
+
+.sideBarc {
+    position : sticky;
+    top : 0;
+}
+
+
+.topSidebar {
+    padding-top : 45px;
+    padding-bottom : 10px;
+
+    background-color : #4e598c;
+}
+.mainTitle {
+    color : #fff;
+    font-family: 'Bebas Neue', cursive;
+    font-size : 30px;
+    text-align: center;
+}
+.secondTitle {
+    width : 80%;
+
+    text-align: justify;
+
+    margin-left : auto;
+    margin-right : auto;
+    font-family: 'Jost', sans-serif;
+    color : #f1f1f1;
+    margin-bottom : 20px;
+}
+
+
+.sideLink {
+    width : 100%;
+
+    border : none;
+    margin : none;
+
+    padding : 10px;
+    text-align : left;
+
+    display : flex;
+    align-items: center; 
+    cursor : pointer;   
+}
+.sideLink > i {
+    padding-left : 20px;
+    font-size : 25px;
+    color : #fff;
+}
+.sideLink > span {
+    font-family: 'Jost', sans-serif;
+    color : #f1f1f1;
+    font-size : 14px;
+    padding-left : 20px;
+}
+.topSidebar .sideLink {
+    background-color : rgba(0,0,0,0.05);
+}
+.sideLink:hover {
+    background-color : rgba(0,0,0,0.2);
+
+}
+
+.linktitle {
+    margin-top : 20px;
+    padding-left : 30px;
+    font-family: 'Bebas Neue', cursive;
+    color : #fff;
+    font-size : 25px;
+}
+
+#closeSideBarB {
+    position : absolute;
+    top : 10px;
+    left : 10px;
+    font-size : 20px;
+    background : none;
+    border : none;
+    color : #fff;
+    cursor : pointer;
+    padding : 10px;
+    z-index : 11;
+}
+#closeSideBarB:hover {
+    color : #e1e1e1;
+}
+
+
+
+/* 
+    animations
+*/
+#body.toggle {
+    transform :translateX(-270px);
+    transition : 0.2s linear;   
+}
+#body {
+    transition : 0.2s linear;
+}
+
+.navbarOverlay {
+    width : 100vw;
+    height : 100%;
+
+    position : fixed !important;
+    top : 0;
+
+    background-color : rgba(21,21,21,0.5);
+
+    visibility:hidden;
+    opacity:0;
+    transition:visibility 0.2s linear,opacity 0.2s linear;
+    -webkit-transition:visibility 0.2s linear,opacity 0.2s linear;
+    -o-transition:visibility 0.2s linear,opacity 0.2s linear;
+
+    -moz-transition :visibility 0.2s linear,opacity 0.2s linear;
+
+    z-index : 7;
+}
+
+.navbarOverlay.toggleNotif {
+    background : transparent;
+    visibility: visible;
+}
+
+/* 
+    signed user
+*/
+.userSecondTitle {
+    text-align : center;
+}
+.signOut i, .signOut span {
+    color : #ff5252 !important;
+}
+
+#notificationButton {
+    display : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items: center;
+
+    position : relative;
+
+    background : none;
+    border : none;
+    color : #6d76a0;
+
+    font-size : 25px;
+    cursor : pointer;
+}
+#notificationButton:hover {
+    color : #4e598c;
+}
+#notification i {
+    transition : 0.2s;
+}
+#notificationButton:hover i {
+    animation : notificationAnim 2s linear infinite;
+}
+.notifActive {
+    position : absolute;
+    top : 0;
+    right : 0;
+
+    width : 10px;
+    height : 10px;
+
+    border-radius : 50%;
+
+    background-color : #ff5252;
+}
+
+
+.notificationsContainer {
+    position : relative;
+}
+
+.notificationsList {
+    position : absolute;
+    right : 0;
+    top : calc(100% + 15px);
+    z-index : 999;
+
+    width : 320px;
+    height : 500px;
+
+    padding : 5px;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+
+    border : 5px solid #4e598c;
+    border-radius : 10px;
+
+    display : flex;
+    flex-direction : column;
+    align-items : stretch;
+    justify-content: flex-start;
+
+    background-color : #fff;    
+
+    display : none;
+
+}
+.notificationsList.toggle {
+    display : flex;
+}
+.notificationsList::before {
+    content : "";
+    position : absolute;
+    top : -15px;
+    right : 15px;
+
+
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    
+    border-bottom: 10px solid #4e598c;
+}
+
+.notification {
+    width : 100%;
+
+    display : flex;
+    flex-direction : column;
+
+    margin-top : 5px;
+    margin-bottom : 5px;
+}
+.messageNotif {
+
+    padding : 5px;
+    font-size : 15px;
+    font-family: 'Jost', sans-serif;
+    text-align : justify
+}
+.dateNotif {
+    font-family: 'Jost', sans-serif;
+    font-size : 14px;
+    color : #212121;
+    padding : 0 5px 5px 5px;
+}
+.notification:not(.notread) {
+    background-color : #e1e1e1;
+}
+
+.notification:not(.notread):hover {
+    background-color : #c4c4c4;
+}
+
+.notification.notread:hover {
+    background-color : #f1f1f1;
+}
+.notificationsList .l {
+    width : 100%;
+    height : 100;
+    overflow-y : scroll;
+}
+
+
+
+/* 
+    footer
+*/
+footer {
+    width : 100vw;
+    padding-top : 25px;
+    padding-bottom : 25px;
+
+    background-color : #6d76a0;
+
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+
+
+}
+.footerLogo {
+    height : 40px;
+}
+
+.snContainer {
+    width : 320px;
+    display : flex;
+    justify-content: center;
+}
+.socialNetwork {
+    width : 40px;
+    height : 40px;
+
+    font-size : 30px;
+
+    display : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items: center;
+
+    color : #ffe064;
+    transition : 0.2s;
+
+    margin-top : 10px;
+}
+.socialNetwork:hover {
+    color : #eaae3e;
+    transition : 0.2s;
+}
+
+@keyframes notificationAnim {
+    0% {
+        transform :rotate(0deg)
+    }
+    25% {
+        transform : rotate(10deg);
+    }
+    50% {
+        transform : rotate(0);
+    }
+    75% {
+        transform : rotate(-10deg);
+    }
+    100% {
+        transform : rotate(0);
+    }
+    
+}
+
+
+
+/* Tablet & Laptop & desktop */
+@media screen and (min-width : 427px) {
+    .logoHeader {
+        height : 45px;
+    }
+
+    .signButton > i {
+        display : none;
+    }
+
+    .userHeaderBtns:not(#notificationButton) {
+        display : none;
+    }
+
+    #notificationButton {
+        margin-right : 20px;
+    }
+
+}
+
+
+
+/* Mobile S,M,L */
+@media screen and (max-width : 426px) {
+    header {
+        position : fixed;
+        bottom : 0;
+
+        z-index : 999;
+
+        background-color : #f1f1f1;
+        border-top : 4px solid #e1e1e1;
+    }
+    .headerContent {
+        width : 100vw;
+        max-width : auto;
+        min-width : 320px;
+        display : flex;
+        flex-direction : row;
+        justify-content: center;
+    }
+    .logoHeader {
+        display : none;
+    }
+
+
+
+    .menuTrigger {
+        display : none;
+    }
+
+    .sideBar {
+        display : none;
+    }
+
+
+    .notificationsList {
+        width : 100vw;
+        height : calc(100vh - 64px);
+        
+        position : fixed;
+        top : 0;
+        left : 0;
+        z-index : 999;
+        
+        border-radius : 0px;
+        border : none;
+
+    }
+    .notificationsList::before {
+        content : none;
+    }
+    .navbarOverlay.toggleNotif {
+        visibility: hidden;
+    }
+
+    .headerTriggersContainer {
+        height : 100%;
+    }
+
+    .signContainer {
+        margin-left : auto;
+        margin-right : auto;
+
+        padding-right : 0;
+
+        width : 320px;
+        height : 100% !important;
+
+        display : flex;
+        flex-direction : row;
+        flex-wrap : nowrap;
+        justify-content: space-around;
+    }
+
+    .userHeaderBtns {
+        width : 20%;
+        height : 100%;
+
+        display : flex;
+        flex-direction : column;
+        align-items: center;
+        justify-content: center;
+
+        font-size : 25px;
+
+        color : #4e598c;
+
+        transition : 0.2s;
+    }
+    .userHeaderBtns:hover {
+        background-color : #e1e1e1;
+        color : #404970;
+    }
+
+    .notifActive {
+        right : 20px;
+        top : 17px;
+    }
+
+    footer {
+            display: none;
+    }
+}
