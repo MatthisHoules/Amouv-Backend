@@ -108,7 +108,7 @@ class User extends Model {
         $stmt = $DB->prepare('INSERT INTO `user` (`lastname`, `firstname`, `email`, `password`, `profileImg`) 
                               VALUES (?, ?, ?, ?, NULL)');
 
-        $stmt->execute([$lastname, $firstname, $mail, $pwd]);
+        $stmt->execute([htmlspecialchars($lastname), htmlspecialchars($firstname), htmlspecialchars($mail), $pwd]);
 
         return $DB->lastInsertId();
 
